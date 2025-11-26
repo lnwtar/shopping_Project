@@ -201,4 +201,135 @@ html, body {
 
 
 /*--------------------------------------------------------------------------------*/
+/*----footer----*/
+.site-footer {
+    background-color: #ffffff;
+    padding: 50px 0 20px;
+    font-size: 14px;
+    color: #333;
+    border-top: 1px solid #e1e1e1; /* เผื่อมีเส้นขอบบน */
+}
 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* จัด Layout เป็นแถว */
+.footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* จัดการแต่ละคอลัมน์ */
+.footer-col {
+    width: 23%; /* แบ่ง 4 ช่อง เท่าๆ กันโดยประมาณ */
+    margin-bottom: 30px;
+}
+
+/* หัวข้อ (CUSTOMER SERVICE, etc.) */
+.footer-col h4 {
+    font-size: 16px;
+    font-weight: 500; /* หรือ bold ตามต้องการ */
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    margin-top: 0;
+    color: #000;
+}
+
+/* รายการลิ้งค์ */
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: block;
+}
+
+.footer-col ul li a:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+/* ข้อความที่ไม่ใช่ลิ้งค์ (เบอร์โทร, เวลาทำการ) */
+.footer-col .hotline, 
+.footer-col .contact-text {
+    margin-top: 15px;
+    color: #333;
+}
+
+/* ไอคอน Social Media */
+.social-links a {
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    color: #000;
+    margin-right: 15px;
+    text-align: left;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #555;
+}
+
+/* เส้นขีดคั่น Copyright */
+.site-footer hr {
+    border: 0;
+    border-top: 1px solid #eaeaea;
+    margin: 20px 0;
+}
+
+/* ส่วน Copyright ด้านล่าง */
+.footer-copyright {
+    color: #999;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+/* จัดเรียงไอคอนให้อยู่แนวนอน */
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* ระยะห่างระหว่างไอคอน */
+}
+
+/* กำหนดขนาดของรูปภาพไอคอน */
+.social-links img {
+    width: 30px;  /* ปรับขนาดตรงนี้ (เช่น 24px, 30px, 40px) */
+    height: 30px; /* ให้สูงเท่ากัน */
+    object-fit: contain; /* ป้องกันภาพเบี้ยว */
+    filter: grayscale(100%); /* (ทางเลือก) ทำให้เป็นสีขาวดำเพื่อให้ดูคลีนๆ แบบ Carnival */
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* เอฟเฟกต์ตอนเอาเมาส์ไปชี้ */
+.social-links img:hover {
+    filter: grayscale(0%); /* คืนสีจริงเมื่อชี้ */
+    transform: scale(1.1); /* ขยายใหญ่ขึ้นนิดนึง */
+}
+/* Responsive: สำหรับหน้าจอมือถือ */
+@media (max-width: 768px) {
+    .footer-col {
+        width: 50%; /* 2 คอลัมน์ต่อแถวใน Tablet */
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 574px) {
+    .footer-col {
+        width: 100%; /* 1 คอลัมน์เต็มใน Mobile */
+    }
+}
