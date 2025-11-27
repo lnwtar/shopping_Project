@@ -11,99 +11,189 @@ html, body {
 }
 
 /*------------------------------------------------------------------------------------------------------------------*/
-/* --- ส่วน Navbar (สำคัญที่สุด) --- */
+/* =========================================
+   1. NAVBAR MAIN LAYOUT (แก้เรื่องบรรทัดและไอคอน)
+   ========================================= */
 
 .navbar {
-    /* คำสั่งทำให้เมนูติดด้านบนตลอดเวลา */
-    position: fixed; 
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 60px; 
+    height: 70px; 
     background-color: #fff;
+    
+    
     display: flex;
-    align-items: center;    
-    padding: 0 40px; 
-    border-bottom: 1px solid #eee; 
-    z-index: 1000; 
+    align-items: center; 
+    justify-content: flex-start; 
+    
+    padding: 0 40px;
+    border-bottom: 1px solid #e5e5e5;
+    z-index: 1000;
+    box-sizing: border-box; 
 }
 
+/* --- LOGO --- */
 .logo {
-    font-family: 'Oswald', sans-serif;
-    font-size: 30px;
-    font-weight: bold;
+    font-family: 'Helvetica Neue', Arial, sans-serif; 
+    font-size: 20px; 
+    font-weight: 800; 
     color: #000;
     text-decoration: none;
-    letter-spacing: 1px;
-    flex-shrink: 0; /* ป้องกันไม่ให้โลโก้ย่อขนาดลง */
+    letter-spacing: 0.5px;
+    margin-right: 40px; 
+    flex-shrink: 0; /* ห้ามโลโก้หด */
+}
+
+/* --- NAV LINKS (เมนูตรงกลาง) --- */
+nav {
+    height: 100%; 
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 25px;    
-    margin-left: 40px; 
-    margin-right: 20px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #555;
-    font-size: 13px; 
-    font-weight: 500; 
-    transition: color 0.3s;
-    text-transform: uppercase; 
-}
-
-.nav-links a:hover {
-    color: #000; 
-}
-
-/* --- แก้ไขจุดที่ 3: จัดการกลุ่มไอคอนด้านขวา --- */
-.nav-icons {
-    margin-left: auto; 
-    
-    display: flex;
     align-items: center;
     gap: 20px; 
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-.nav-icons a {
-    color: #333;
-    font-size: 18px;
+.nav-links li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative; 
+}
+
+.menu-link {
+    white-space: nowrap;
     text-decoration: none;
+    color: #333;
+    font-size: 13px;
+    font-weight: 600; /* หนาปานกลาง */
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    white-space: nowrap; /* ห้ามตัดคำขึ้นบรรทัดใหม่ */
+    padding: 0 5px;
+    transition: color 0.2s;
+}
+
+.menu-link:hover {
+    color: #000;
+}
+
+
+.nav-icons {
+    margin-left: auto; 
+    display: flex;
+    align-items: center;
+    gap: 25px; 
+}
+
+.icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.icon-link:hover {
+    opacity: 1;
+}
+
+
+.nav-icons img {
+    width: 20px; 
+    height: 20px;
+    object-fit: contain;
+    display: block;
 }
 
 .lang-selector {
     font-size: 13px;
     font-weight: bold;
+    color: #000;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 5px;
-}
-/* จัดการรูปไอคอนให้ขนาดพอดี */
-.nav-icons .icon-img {
-    width: 22px;  /* ปรับขนาดความกว้างตามต้องการ (ปกติ 20-25px) */
-    height: auto; /* ให้สูงตามสัดส่วน */
-    display: block; /* แก้ปัญหาช่องว่างด้านล่างรูป */
-    object-fit: contain; /* มั่นใจว่ารูปไม่เบี้ยว */
-    transition: opacity 0.3s; /* เอฟเฟกต์ตอนชี้ */
+    padding-left: 10px;
+    border-left: 1px solid #ddd; 
 }
 
-/* (ถ้ามี) จัดลิงก์ให้จัดกึ่งกลาง */
-.nav-icons a {
+
+/*------ Dropdown Menu ----*/
+
+.dropdown-menu {
+    position: absolute;
+    top: 70px; 
+    left: 0;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-top: none; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    padding: 30px;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+}
+
+.has-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.type-wide .dropdown-menu { width: 600px; }
+.type-box .dropdown-menu  { width: 350px; }
+.type-row .dropdown-menu  { width: max-content; min-width: 400px; padding: 20px 30px; }
+.dropdown-inner { display: flex; gap: 50px; }
+.dropdown-col { display: flex; flex-direction: column; min-width: 120px; }
+.full-width { width: 100%; }
+
+.dd-header {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    display: block;
+}
+
+.dd-list, .sub-col, .horizontal-list {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
 }
 
-/* เพิ่มลูกเล่นตอนเอาเมาส์ชี้ให้จางลงนิดนึง */
-.nav-icons .icon-img:hover {
-    opacity: 0.7;
+.dd-list { flex-direction: column; gap: 10px; }
+.sub-col { flex-direction: column; gap: 10px; width: 48%; }
+.horizontal-list { flex-direction: row; gap: 30px; align-items: center; }
+
+.dd-grid-2 { display: flex; justify-content: space-between; }
+
+/* ลิงก์ใน Dropdown */
+.dropdown-inner a {
+    font-size: 13px;
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-family: 'Helvetica Neue', sans-serif;
 }
+
+.dropdown-inner a:hover { color: #000; text-decoration: underline; }
+.horizontal-list a { color: #333; font-size: 14px; }
+
+
+
 /*------------------------------------------------------------------------------------------------------------------*/
+
+
 
 /* --- ส่วนเนื้อหา (Content) --- */
 .content-container {
@@ -227,32 +317,30 @@ html, body {
             text-transform: uppercase;
         }
 
-        /* --- 3. ตารางสินค้า (GRID) --- */
+        
         .product-grid {
             display: grid;
-            /* จัด 6 คอลัมน์แบบอัตโนมัติ */
             grid-template-columns: repeat(6, 1fr); 
-            gap: 40px 20px; /* ระยะห่าง: บนล่าง 40px, ซ้ายขวา 20px */
+            gap: 40px 20px; 
         }
 
-        /* --- 4. การ์ดสินค้า --- */
+        
         .product-card {
             text-align: center;
             width: 100%;
         }
 
-        /* กล่องใส่รูป (ใส่สีเทารองพื้นไว้ กันรูปไม่โหลด) */
         .layer-image {
             background-color: #f0f0f0; 
             margin-bottom: 15px;
-            overflow: hidden; /* กันภาพล้น */
-            aspect-ratio: 1 / 1; /* บังคับให้เป็นสี่เหลี่ยมจัตุรัสเสมอ */
+            overflow: hidden;
+            aspect-ratio: 1 / 1; 
         }
 
         .layer-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* ให้ภาพเต็มกล่องโดยไม่บีบ */
+            object-fit: cover; 
             display: block;
         }
 
@@ -270,7 +358,7 @@ html, body {
             margin: 0;
         }
 
-        /* --- ทำให้รองรับมือถือ (Responsive) --- */
+        
         @media (max-width: 1200px) {
             .product-grid { grid-template-columns: repeat(4, 1fr); }
         }
@@ -285,7 +373,7 @@ html, body {
     padding: 50px 0 20px;
     font-size: 14px;
     color: #333;
-    border-top: 1px solid #e1e1e1; /* เผื่อมีเส้นขอบบน */
+    border-top: 1px solid #e1e1e1;
 }
 
 .container {
