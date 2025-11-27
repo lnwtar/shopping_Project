@@ -198,7 +198,85 @@ html, body {
         z-index: 0;
     }
 }
+/*--------------------------------------------------------------------------------*/
+/*-----Container-----*/
+.main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
 
+        /* --- 2. ส่วนหัวข้อ --- */
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .sub-title {
+            display: block;
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .main-title {
+            font-size: 32px;
+            color: #000;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        /* --- 3. ตารางสินค้า (GRID) --- */
+        .product-grid {
+            display: grid;
+            /* จัด 6 คอลัมน์แบบอัตโนมัติ */
+            grid-template-columns: repeat(6, 1fr); 
+            gap: 40px 20px; /* ระยะห่าง: บนล่าง 40px, ซ้ายขวา 20px */
+        }
+
+        /* --- 4. การ์ดสินค้า --- */
+        .product-card {
+            text-align: center;
+            width: 100%;
+        }
+
+        /* กล่องใส่รูป (ใส่สีเทารองพื้นไว้ กันรูปไม่โหลด) */
+        .layer-image {
+            background-color: #f0f0f0; 
+            margin-bottom: 15px;
+            overflow: hidden; /* กันภาพล้น */
+            aspect-ratio: 1 / 1; /* บังคับให้เป็นสี่เหลี่ยมจัตุรัสเสมอ */
+        }
+
+        .layer-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* ให้ภาพเต็มกล่องโดยไม่บีบ */
+            display: block;
+        }
+
+        .product-name {
+            font-size: 12px;
+            color: #000;
+            margin: 10px 0 5px 0;
+            text-transform: uppercase;
+            font-weight: normal;
+        }
+
+        .product-price {
+            font-size: 12px;
+            color: #666;
+            margin: 0;
+        }
+
+        /* --- ทำให้รองรับมือถือ (Responsive) --- */
+        @media (max-width: 1200px) {
+            .product-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+        }
 
 /*--------------------------------------------------------------------------------*/
 /*----footer----*/
@@ -310,7 +388,7 @@ html, body {
     width: 30px;  /* ปรับขนาดตรงนี้ (เช่น 24px, 30px, 40px) */
     height: 30px; /* ให้สูงเท่ากัน */
     object-fit: contain; /* ป้องกันภาพเบี้ยว */
-    filter: grayscale(100%); /* (ทางเลือก) ทำให้เป็นสีขาวดำเพื่อให้ดูคลีนๆ แบบ Carnival */
+    filter: grayscale(100%); 
     transition: all 0.3s ease;
     cursor: pointer;
 }
@@ -318,18 +396,18 @@ html, body {
 /* เอฟเฟกต์ตอนเอาเมาส์ไปชี้ */
 .social-links img:hover {
     filter: grayscale(0%); /* คืนสีจริงเมื่อชี้ */
-    transform: scale(1.1); /* ขยายใหญ่ขึ้นนิดนึง */
+    transform: scale(1.1); 
 }
 /* Responsive: สำหรับหน้าจอมือถือ */
 @media (max-width: 768px) {
     .footer-col {
-        width: 50%; /* 2 คอลัมน์ต่อแถวใน Tablet */
+        width: 50%;
         margin-bottom: 30px;
     }
 }
 
 @media (max-width: 574px) {
     .footer-col {
-        width: 100%; /* 1 คอลัมน์เต็มใน Mobile */
+        width: 100%; 
     }
 }
