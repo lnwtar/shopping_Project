@@ -1,15 +1,27 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // 1. ค้นหาปุ่มไซส์ทั้งหมด
-    const sizeButtons = document.querySelectorAll('.size-btn');
+/* ไฟล์ script.js */
 
-    // 2. วนลูปเพื่อใส่คำสั่งให้ทุกปุ่ม
-    sizeButtons.forEach(button => {
-        button.addEventListener('click', function () {
+// บรรทัดนี้ใช้ทดสอบ: ถ้าเชื่อมติด เปิดเว็บมาจะมีข้อความเด้งขึ้นมา
+console.log("เชื่อมต่อไฟล์ JS สำเร็จแล้ว!");
 
-            // 3. ลบ class 'selected' ออกจากทุกปุ่มก่อน (เพื่อให้ปุ่มเก่ากลับเป็นสีขาว)
-            sizeButtons.forEach(btn => btn.classList.remove('selected'));
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // 1. หาปุ่ม
+    const buttons = document.querySelectorAll('.size-btn');
 
-            // 4. ใส่ class 'selected' ให้ปุ่มที่เพิ่งถูกกด (เพื่อให้เป็นสีดำ)
+    // ถ้าไม่เจอปุ่ม ให้แจ้งเตือนใน Console
+    if(buttons.length === 0) {
+        console.error("ไม่เจอปุ่ม .size-btn เลย! ตรวจสอบ HTML อีกที");
+        return;
+    }
+
+    // 2. สั่งงาน
+    buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            // ลบสีเก่า
+            buttons.forEach(function(b) {
+                b.classList.remove('selected');
+            });
+            // ใส่สีใหม่
             this.classList.add('selected');
         });
     });
