@@ -1,0 +1,331 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden; 
+}
+
+/*------------------------------------------------------------------------------------------------------------------*/
+/* =========================================
+   1. NAVBAR MAIN LAYOUT (แก้เรื่องบรรทัดและไอคอน)
+   ========================================= */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px; 
+    background-color: #fff;
+    
+    
+    display: flex;
+    align-items: center; 
+    justify-content: flex-start; 
+    
+    padding: 0 40px;
+    border-bottom: 1px solid #e5e5e5;
+    z-index: 1000;
+    box-sizing: border-box; 
+}
+
+/* --- LOGO --- */
+.logo {
+    font-family: 'Helvetica Neue', Arial, sans-serif; 
+    font-size: 20px; 
+    font-weight: 800; 
+    color: #000;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    margin-right: 40px; 
+    flex-shrink: 0; /* ห้ามโลโก้หด */
+}
+
+/* --- NAV LINKS (เมนูตรงกลาง) --- */
+nav {
+    height: 100%; 
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative; 
+}
+
+.menu-link {
+    white-space: nowrap;
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+    font-weight: 600; /* หนาปานกลาง */
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    white-space: nowrap; /* ห้ามตัดคำขึ้นบรรทัดใหม่ */
+    padding: 0 5px;
+    transition: color 0.2s;
+}
+
+.menu-link:hover {
+    color: #000;
+}
+
+
+.nav-icons {
+    margin-left: auto; 
+    display: flex;
+    align-items: center;
+    gap: 25px; 
+}
+
+.icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.icon-link:hover {
+    opacity: 1;
+}
+
+
+.nav-icons img {
+    width: 20px; 
+    height: 20px;
+    object-fit: contain;
+    display: block;
+}
+
+.lang-selector {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-left: 10px;
+    border-left: 1px solid #ddd; 
+}
+
+
+/*------ Dropdown Menu ----*/
+
+.dropdown-menu {
+    position: absolute;
+    top: 70px; 
+    left: 0;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-top: none; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    padding: 30px;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+}
+
+.has-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.type-wide .dropdown-menu { width: 600px; }
+.type-box .dropdown-menu  { width: 350px; }
+.type-row .dropdown-menu  { width: max-content; min-width: 400px; padding: 20px 30px; }
+.dropdown-inner { display: flex; gap: 50px; }
+.dropdown-col { display: flex; flex-direction: column; min-width: 120px; }
+.full-width { width: 100%; }
+
+.dd-header {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    display: block;
+}
+
+.dd-list, .sub-col, .horizontal-list {
+    display: flex;
+}
+
+.dd-list { flex-direction: column; gap: 10px; }
+.sub-col { flex-direction: column; gap: 10px; width: 48%; }
+.horizontal-list { flex-direction: row; gap: 30px; align-items: center; }
+
+.dd-grid-2 { display: flex; justify-content: space-between; }
+
+/* ลิงก์ใน Dropdown */
+.dropdown-inner a {
+    font-size: 13px;
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+.dropdown-inner a:hover { color: #000; text-decoration: underline; }
+.horizontal-list a { color: #333; font-size: 14px; }
+
+
+
+/*------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+/*-----New Arrival Section-----*/
+.new-arrival-section {
+    padding: 80px 40px; 
+    max-width: 1600px;  
+    margin: 0 auto;    
+}
+
+.section-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 50px; /* ห่างจากตารางสินค้า */
+    color: #000;
+}
+
+/* --- GRID SYSTEM --- */
+.product-grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 60px 30px; 
+}
+
+
+/* =========================================
+   PRODUCT CARD & SIZE HOVER SYSTEM
+   ========================================= */
+
+.product-card {
+    display: block;
+    text-decoration: none;
+    color: #000;
+    position: relative; 
+}
+
+/* --- product --- */
+.product-image {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative; 
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease; 
+}
+
+
+.size-overlay {
+    position: absolute;
+    bottom: 0;      
+    left: 0;
+    width: 100%;   
+    background: rgba(255, 255, 255, 0.95); 
+    padding: 15px 10px;   
+    display: flex;         
+    justify-content: center; 
+    gap: 15px;              
+    opacity: 0;            
+    transform: translateY(100%); 
+    transition: all 0.3s ease;   
+}
+
+/* ข้อความไซส์ S M L XL */
+.size-overlay span {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.size-overlay span:hover {
+    color: #000; 
+    text-decoration: underline;
+}
+
+/* --- HOVER --- */
+
+
+.product-card:hover .size-overlay {
+    opacity: 1;
+    transform: translateY(0); 
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.05); 
+}
+
+.product-info {
+    text-align: center; 
+    padding: 0 10px;    
+}
+
+.p-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    line-height: 1.4;
+    color: #000;
+}
+
+.p-price {
+    font-size: 14px;
+    color: #666; /* สีเทา */
+    margin: 0;
+    font-weight: 500;
+}
+
+/*----- Responsive Design -----*/
+@media (max-width: 1024px) {
+    .hero-title { font-size: 48px; }
+    .new-arrival-section { padding: 60px 20px; }
+    /* เหลือ 3 คอลัมน์ */
+    .product-grid-container { grid-template-columns: repeat(3, 1fr); gap: 40px 20px;}
+}
+
+/* จอมือถือ (น้อยกว่า 768px) */
+@media (max-width: 768px) {
+    .hero-banner { height: 60vh; min-height: 400px; }
+    .hero-subtitle { font-size: 14px; }
+    .hero-title { font-size: 36px; }
+    .section-title { font-size: 24px; margin-bottom: 30px;}
+    /* เหลือ 2 คอลัมน์ */
+    .product-grid-container { grid-template-columns: repeat(2, 1fr); gap: 30px 15px; }
+}
