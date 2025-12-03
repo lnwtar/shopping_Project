@@ -4,10 +4,11 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     width: 100%;
     height: 100%;
-    overflow-x: hidden; 
+    overflow-x: hidden;
 }
 
 /*------------------------------------------------------------------------------------------------------------------*/
@@ -20,42 +21,43 @@ html, body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 70px; 
+    height: 70px;
     background-color: #fff;
-    
-    
+
+
     display: flex;
-    align-items: center; 
-    justify-content: flex-start; 
-    
+    align-items: center;
+    justify-content: flex-start;
+
     padding: 0 40px;
     border-bottom: 1px solid #e5e5e5;
     z-index: 1000;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 /* --- LOGO --- */
 .logo {
-    font-family: 'Helvetica Neue', Arial, sans-serif; 
-    font-size: 20px; 
-    font-weight: 800; 
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 800;
     color: #000;
     text-decoration: none;
     letter-spacing: 0.5px;
-    margin-right: 40px; 
-    flex-shrink: 0; /* ห้ามโลโก้หด */
+    margin-right: 40px;
+    flex-shrink: 0;
+    /* ห้ามโลโก้หด */
 }
 
 /* --- NAV LINKS (เมนูตรงกลาง) --- */
 nav {
-    height: 100%; 
+    height: 100%;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 20px; 
+    gap: 20px;
     height: 100%;
     margin: 0;
     padding: 0;
@@ -65,7 +67,7 @@ nav {
     height: 100%;
     display: flex;
     align-items: center;
-    position: relative; 
+    position: relative;
 }
 
 .menu-link {
@@ -73,10 +75,12 @@ nav {
     text-decoration: none;
     color: #333;
     font-size: 13px;
-    font-weight: 600; /* หนาปานกลาง */
+    font-weight: 600;
+    /* หนาปานกลาง */
     text-transform: uppercase;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    white-space: nowrap; /* ห้ามตัดคำขึ้นบรรทัดใหม่ */
+    white-space: nowrap;
+    /* ห้ามตัดคำขึ้นบรรทัดใหม่ */
     padding: 0 5px;
     transition: color 0.2s;
 }
@@ -87,10 +91,10 @@ nav {
 
 
 .nav-icons {
-    margin-left: auto; 
+    margin-left: auto;
     display: flex;
     align-items: center;
-    gap: 25px; 
+    gap: 25px;
 }
 
 .icon-link {
@@ -108,7 +112,7 @@ nav {
 
 
 .nav-icons img {
-    width: 20px; 
+    width: 20px;
     height: 20px;
     object-fit: contain;
     display: block;
@@ -123,7 +127,7 @@ nav {
     align-items: center;
     gap: 5px;
     padding-left: 10px;
-    border-left: 1px solid #ddd; 
+    border-left: 1px solid #ddd;
 }
 
 
@@ -131,12 +135,12 @@ nav {
 
 .dropdown-menu {
     position: absolute;
-    top: 70px; 
+    top: 70px;
     left: 0;
     background: #fff;
     border: 1px solid #e5e5e5;
-    border-top: none; 
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-top: none;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
     padding: 30px;
     z-index: 999;
     opacity: 0;
@@ -151,12 +155,34 @@ nav {
     transform: translateY(0);
 }
 
-.type-wide .dropdown-menu { width: 600px; }
-.type-box .dropdown-menu  { width: 350px; }
-.type-row .dropdown-menu  { width: max-content; min-width: 400px; padding: 20px 30px; }
-.dropdown-inner { display: flex; gap: 50px; }
-.dropdown-col { display: flex; flex-direction: column; min-width: 120px; }
-.full-width { width: 100%; }
+.type-wide .dropdown-menu {
+    width: 600px;
+}
+
+.type-box .dropdown-menu {
+    width: 350px;
+}
+
+.type-row .dropdown-menu {
+    width: max-content;
+    min-width: 400px;
+    padding: 20px 30px;
+}
+
+.dropdown-inner {
+    display: flex;
+    gap: 50px;
+}
+
+.dropdown-col {
+    display: flex;
+    flex-direction: column;
+    min-width: 120px;
+}
+
+.full-width {
+    width: 100%;
+}
 
 .dd-header {
     font-size: 13px;
@@ -167,15 +193,33 @@ nav {
     display: block;
 }
 
-.dd-list, .sub-col, .horizontal-list {
+.dd-list,
+.sub-col,
+.horizontal-list {
     display: flex;
 }
 
-.dd-list { flex-direction: column; gap: 10px; }
-.sub-col { flex-direction: column; gap: 10px; width: 48%; }
-.horizontal-list { flex-direction: row; gap: 30px; align-items: center; }
+.dd-list {
+    flex-direction: column;
+    gap: 10px;
+}
 
-.dd-grid-2 { display: flex; justify-content: space-between; }
+.sub-col {
+    flex-direction: column;
+    gap: 10px;
+    width: 48%;
+}
+
+.horizontal-list {
+    flex-direction: row;
+    gap: 30px;
+    align-items: center;
+}
+
+.dd-grid-2 {
+    display: flex;
+    justify-content: space-between;
+}
 
 /* ลิงก์ใน Dropdown */
 .dropdown-inner a {
@@ -186,8 +230,15 @@ nav {
     font-family: 'Helvetica Neue', sans-serif;
 }
 
-.dropdown-inner a:hover { color: #000; text-decoration: underline; }
-.horizontal-list a { color: #333; font-size: 14px; }
+.dropdown-inner a:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+.horizontal-list a {
+    color: #333;
+    font-size: 14px;
+}
 
 
 
@@ -197,10 +248,10 @@ nav {
 
 /* --- ส่วนเนื้อหา (Content) --- */
 .content-container {
-    padding-top: 120px; 
+    padding-top: 120px;
     padding-left: 40px;
     padding-right: 40px;
-    min-height: 200vh; 
+    min-height: 200vh;
 }
 
 .product-grid {
@@ -219,19 +270,21 @@ nav {
     font-size: 24px;
     color: #999;
 }
+
 /*----------------------------------------------------------------------------------------------*/
 /*  จัดโครงสร้าง Hero Section */
 .hero-section {
     position: relative;
     width: 100%;
-    height: 100vh; 
-    overflow: hidden; 
+    height: 100vh;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #000; 
+    background-color: #000;
     animation: smoothSlide 15s infinite cubic-bezier(0.45, 0, 0.55, 1);
 }
+
 /*-----------------------------------------------------------------------------*/
 /* --- ส่วนการตั้งค่ารูปภาพ --- */
 .hero-image {
@@ -251,120 +304,138 @@ nav {
 .hero-image:nth-child(1) {
     animation-delay: -1s;
 }
+
 .hero-image:nth-child(2) {
     animation-delay: 4s;
 }
+
 .hero-image:nth-child(3) {
     animation-delay: 9s;
 }
 
 @keyframes gaplessSlide {
-   
-    0% { 
-        transform: translateX(100%) scale(1.02); 
+
+    0% {
+        transform: translateX(100%) scale(1.02);
         z-index: 2;
     }
-    6.66% { 
+
+    6.66% {
         transform: translateX(0%) scale(1.02);
         z-index: 2;
     }
 
-    33.33% { 
-        transform: translateX(0%) scale(1.02); 
+    33.33% {
+        transform: translateX(0%) scale(1.02);
         z-index: 1;
     }
-    
-    40% { 
-        transform: translateX(-100%) scale(1.02); 
+
+    40% {
+        transform: translateX(-100%) scale(1.02);
         z-index: 1;
     }
-    
-    40.01% { 
-        transform: translateX(100%) scale(1.02); 
+
+    40.01% {
+        transform: translateX(100%) scale(1.02);
         z-index: 0;
     }
-    100% { 
-        transform: translateX(100%) scale(1.02); 
+
+    100% {
+        transform: translateX(100%) scale(1.02);
         z-index: 0;
     }
 }
+
 /*--------------------------------------------------------------------------------*/
 /*-----Container-----*/
 .main-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
 
-        /* --- 2. ส่วนหัวข้อ --- */
-        .section-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
+/* --- 2. ส่วนหัวข้อ --- */
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
 
-        .sub-title {
-            display: block;
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
+.sub-title {
+    display: block;
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
 
-        .main-title {
-            font-size: 32px;
-            color: #000;
-            margin: 0;
-            text-transform: uppercase;
-        }
+.main-title {
+    font-size: 32px;
+    color: #000;
+    margin: 0;
+    text-transform: uppercase;
+}
 
-        
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr); 
-            gap: 40px 20px; 
-        }
 
-        
-        .product-card {
-            text-align: center;
-            width: 100%;
-        }
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 40px 20px;
+}
 
-        .layer-image {
-            background-color: #f0f0f0; 
-            margin-bottom: 15px;
-            overflow: hidden;
-            aspect-ratio: 1 / 1; 
-        }
 
-        .layer-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            display: block;
-        }
+.product-card {
+    text-align: center;
+    width: 100%;
+}
 
-        .product-name {
-            font-size: 12px;
-            color: #000;
-            margin: 10px 0 5px 0;
-            text-transform: uppercase;
-            font-weight: normal;
-        }
+.layer-image {
+    background-color: #f0f0f0;
+    margin-bottom: 15px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+}
 
-        .product-price {
-            font-size: 12px;
-            color: #666;
-            margin: 0;
-        }
+.layer-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
 
-        
-        @media (max-width: 1200px) {
-            .product-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-        @media (max-width: 768px) {
-            .product-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+.product-name {
+    font-size: 12px;
+    color: #000;
+    margin: 10px 0 5px 0;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.product-price {
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+}
+
+.product-grid a {
+    text-decoration: none;
+    /* ลบขีดเส้นใต้ */
+    color: inherit;
+    /* ให้สีตัวอักษรเป็นไปตามที่กำหนดใน product-name/price ไม่ใช่สีน้ำเงิน */
+    display: block;
+}
+
+
+@media (max-width: 1200px) {
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 
 /*--------------------------------------------------------------------------------*/
 /*----footer----*/
@@ -391,14 +462,16 @@ nav {
 
 /* จัดการแต่ละคอลัมน์ */
 .footer-col {
-    width: 23%; /* แบ่ง 4 ช่อง เท่าๆ กันโดยประมาณ */
+    width: 23%;
+    /* แบ่ง 4 ช่อง เท่าๆ กันโดยประมาณ */
     margin-bottom: 30px;
 }
 
 /* หัวข้อ (CUSTOMER SERVICE, etc.) */
 .footer-col h4 {
     font-size: 16px;
-    font-weight: 500; /* หรือ bold ตามต้องการ */
+    font-weight: 500;
+    /* หรือ bold ตามต้องการ */
     text-transform: uppercase;
     margin-bottom: 25px;
     margin-top: 0;
@@ -429,7 +502,7 @@ nav {
 }
 
 /* ข้อความที่ไม่ใช่ลิ้งค์ (เบอร์โทร, เวลาทำการ) */
-.footer-col .hotline, 
+.footer-col .hotline,
 .footer-col .contact-text {
     margin-top: 15px;
     color: #333;
@@ -464,28 +537,35 @@ nav {
     font-size: 12px;
     text-transform: uppercase;
 }
+
 /* จัดเรียงไอคอนให้อยู่แนวนอน */
 .social-links {
     display: flex;
     align-items: center;
-    gap: 15px; /* ระยะห่างระหว่างไอคอน */
+    gap: 15px;
+    /* ระยะห่างระหว่างไอคอน */
 }
 
 /* กำหนดขนาดของรูปภาพไอคอน */
 .social-links img {
-    width: 30px;  /* ปรับขนาดตรงนี้ (เช่น 24px, 30px, 40px) */
-    height: 30px; /* ให้สูงเท่ากัน */
-    object-fit: contain; /* ป้องกันภาพเบี้ยว */
-    filter: grayscale(100%); 
+    width: 30px;
+    /* ปรับขนาดตรงนี้ (เช่น 24px, 30px, 40px) */
+    height: 30px;
+    /* ให้สูงเท่ากัน */
+    object-fit: contain;
+    /* ป้องกันภาพเบี้ยว */
+    filter: grayscale(100%);
     transition: all 0.3s ease;
     cursor: pointer;
 }
 
 /* เอฟเฟกต์ตอนเอาเมาส์ไปชี้ */
 .social-links img:hover {
-    filter: grayscale(0%); /* คืนสีจริงเมื่อชี้ */
-    transform: scale(1.1); 
+    filter: grayscale(0%);
+    /* คืนสีจริงเมื่อชี้ */
+    transform: scale(1.1);
 }
+
 /* Responsive: สำหรับหน้าจอมือถือ */
 @media (max-width: 768px) {
     .footer-col {
@@ -496,6 +576,6 @@ nav {
 
 @media (max-width: 574px) {
     .footer-col {
-        width: 100%; 
+        width: 100%;
     }
 }
