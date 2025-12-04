@@ -428,6 +428,17 @@ h1 {
     cursor: pointer;
     box-shadow: 0 0 0 2px #000;
 }
+.color-swatch-PigmentBlack {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    padding: 3px;
+    background-color: #3c3c3b;
+    background-clip: content-box;
+    cursor: pointer;
+    box-shadow: 0 0 0 2px #000;
+}
 
 .size-selection {
     margin-bottom: 40px;
