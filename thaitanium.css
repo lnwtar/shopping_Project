@@ -307,25 +307,32 @@ nav {
 
 .p-price {
     font-size: 14px;
-    color: #666; /* สีเทา */
+    color: #666; 
     margin: 0;
     font-weight: 500;
 }
 
+.price-sale {
+    color: #ff0000; 
+    font-weight: 700; 
+    margin-right: 5px; 
+}
+.price-original {
+    color: #b0b0b0; 
+    text-decoration: line-through; 
+    font-size: 0.9em; 
+}
 /*----- Responsive Design -----*/
 @media (max-width: 1024px) {
     .hero-title { font-size: 48px; }
     .new-arrival-section { padding: 60px 20px; }
-    /* เหลือ 3 คอลัมน์ */
     .product-grid-container { grid-template-columns: repeat(3, 1fr); gap: 40px 20px;}
 }
 
-/* จอมือถือ (น้อยกว่า 768px) */
 @media (max-width: 768px) {
     .hero-banner { height: 60vh; min-height: 400px; }
     .hero-subtitle { font-size: 14px; }
     .hero-title { font-size: 36px; }
     .section-title { font-size: 24px; margin-bottom: 30px;}
-    /* เหลือ 2 คอลัมน์ */
     .product-grid-container { grid-template-columns: repeat(2, 1fr); gap: 30px 15px; }
 }
