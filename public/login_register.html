@@ -42,24 +42,33 @@
       <section class="form-container">
         
         <!-- ฟอร์ม Login -->
-        <form id="login-form" class="form active-form" onsubmit="handleLogin(event)">
-          <label>อีเมล</label>
-          <input type="email" placeholder="email@noir.com" required>
-          
-          <label>รหัสผ่าน</label>
-          <input type="password" placeholder="••••••••" required>
-          
-          <button type="submit" class="btn-black">เข้าสู่ระบบ</button>
-        </form>
+       <form id="login-form" class="form active-form" onsubmit="handleLogin(event)">
+  <label for="login-email">อีเมล</label>
+  <input id="login-email" type="email" placeholder="email@noir.com" required>
+  
+  <label for="login-password">รหัสผ่าน</label>
+  <input id="login-password" type="password" placeholder="••••••••" required>
+  
+  <button type="submit" class="btn-black">เข้าสู่ระบบ</button>
+</form>
 
         <!-- ฟอร์ม Register -->
         <form id="register-form" class="form hidden-form" onsubmit="handleRegister(event)">
-          <input type="text" placeholder="ชื่อผู้ใช้" required>
-          <input type="email" placeholder="อีเมลของคุณ" required>
-          <input type="password" id="reg-pass" placeholder="รหัสผ่าน" required>
-          <input type="password" id="reg-confirm-pass" placeholder="ยืนยันรหัสผ่าน" required>
-          <button type="submit" class="btn-white">สมัครสมาชิก</button>
-        </form>
+  <label for="reg-username">ชื่อผู้ใช้</label>
+  <input id="reg-username" type="text" placeholder="ชื่อผู้ใช้" required>
+
+  <label for="reg-email">อีเมล</label>
+  <input id="reg-email" type="email" placeholder="อีเมลของคุณ" required>
+
+  <label for="reg-pass">รหัสผ่าน</label>
+  <input id="reg-pass" type="password" placeholder="รหัสผ่าน" required>
+
+  <label for="reg-confirm-pass">ยืนยันรหัสผ่าน</label>
+  <input id="reg-confirm-pass" type="password" placeholder="ยืนยันรหัสผ่าน" required>
+
+  <button type="submit" class="btn-white">สมัครสมาชิก</button>
+</form>
+
       </section>
     </main>
   </div>

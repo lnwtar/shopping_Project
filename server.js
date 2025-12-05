@@ -14,3 +14,6 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+// routes
+const authRoutes = require('./routes/auth');
+app.use('/auth', authRoutes);
