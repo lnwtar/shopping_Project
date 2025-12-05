@@ -1,0 +1,131 @@
+/* =========================
+   Base Styles (พื้นฐาน)
+========================= */
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif; /* ฟอนต์หลัก */
+  background-color: #121212;       /* พื้นหลังสีดำ */
+  color: #121212;                  /* สีตัวอักษรหลัก */
+}
+
+/* =========================
+   Card Layout (กล่องหลัก)
+========================= */
+.card-container {
+  max-width: 400px;
+  width: 100%;
+  background: #F9F9F9;             /* พื้นหลังสีขาว */
+  border: 2px solid #888;          /* เส้นขอบเทา */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5); /* เงา */
+}
+
+.card-header {
+  background: #121212;             /* พื้นหลังหัวสีดำ */
+  text-align: center;
+  padding: 20px;
+}
+
+.title {
+  font-family: 'Helvetica Neue', Arial, sans-serif;       /* ฟอนต์ Carnival */
+  color: #fff;
+  font-size: 2rem;
+  letter-spacing: 0.2em;           /* ระยะห่างตัวอักษร */
+}
+
+.subtitle {
+  font-size: 0.7rem;
+  color: #888;
+  text-transform: uppercase;
+}
+
+/* =========================
+   Toggle (ปุ่มสลับ Login/Register)
+========================= */
+.toggle-container {
+  display: flex;
+  position: relative;
+  border: 2px solid #000;
+  margin: 20px 0;
+}
+
+.toggle-bg {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  background: #121212;             /* พื้นหลัง toggle สีดำ */
+  transition: transform 0.3s;      /* ทำให้เลื่อนนุ่มนวล */
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.toggle-btn.active {
+  color: #fff;                     /* ปุ่มที่ active เป็นสีขาว */
+}
+
+/* =========================
+   Forms (ฟอร์ม Login/Register)
+========================= */
+.form-container {
+  padding: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form input {
+  border: 1px solid #000;
+  padding: 8px;
+}
+
+.form-transition {
+  transition: all 0.5s ease;
+}
+
+.hidden-form {
+  display: none;                   /* ซ่อนฟอร์ม */
+}
+
+.active-form {
+  display: flex;                   /* แสดงฟอร์ม */
+}
+
+/* =========================
+   Buttons (ปุ่มกด)
+========================= */
+.btn-black {
+  background: #121212;
+  color: #fff;
+  padding: 10px;
+  border: 2px solid #000;
+  cursor: pointer;
+}
+
+.btn-white {
+  background: #fff;
+  color: #121212;
+  padding: 10px;
+  border: 2px solid #000;
+  cursor: pointer;
+}
+
+/* =========================
+   Toast (แจ้งเตือน)
+========================= */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #121212;
+  color: #fff;
+  padding: 15px;
+  border: 1px solid #fff;
+  box-shadow: 4px 4px 0 rgba(255,255,255,0.5);
+}
