@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HIENDBRANDS Login</title>
+
+  <!-- โหลดฟอนต์จาก Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;600&family=Rye&display=swap" rel="stylesheet">
+
+  <!-- โหลด Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- โหลดไอคอนจาก Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- เชื่อมกับไฟล์ CSS ของเรา -->
+  <link rel="stylesheet" href="login_regis.css">
+</head>
+<body class="bg-noir-black font-thai flex items-center justify-center min-h-screen">
+
+  <!-- กล่องหลัก (Card) -->
+  <div class="card-container">
+    
+    <!-- ส่วนหัว (Header) -->
+    <header class="card-header">
+      <h1 class="title">HIENDBRANDS</h1>
+      
+    </header>
+
+    <!-- ส่วนเนื้อหา (Content) -->
+    <main class="card-content">
+      
+      <!-- ปุ่มสลับ Login/Register -->
+      <div class="toggle-container">
+        <div id="toggle-bg" class="toggle-bg"></div>
+        <button id="btn-login" onclick="switchTab('login')" class="toggle-btn active">เข้าสู่ระบบ</button>
+        <button id="btn-register" onclick="switchTab('register')" class="toggle-btn">สมัครสมาชิก</button>
+      </div>
+
+      <!-- ฟอร์ม Login/Register -->
+      <section class="form-container">
+        
+        <!-- ฟอร์ม Login -->
+        <form id="login-form" class="form active-form" onsubmit="handleLogin(event)">
+          <label>อีเมล</label>
+          <input type="email" placeholder="email@noir.com" required>
+          
+          <label>รหัสผ่าน</label>
+          <input type="password" placeholder="••••••••" required>
+          
+          <button type="submit" class="btn-black">เข้าสู่ระบบ</button>
+        </form>
+
+        <!-- ฟอร์ม Register -->
+        <form id="register-form" class="form hidden-form" onsubmit="handleRegister(event)">
+          <input type="text" placeholder="ชื่อผู้ใช้" required>
+          <input type="email" placeholder="อีเมลของคุณ" required>
+          <input type="password" id="reg-pass" placeholder="รหัสผ่าน" required>
+          <input type="password" id="reg-confirm-pass" placeholder="ยืนยันรหัสผ่าน" required>
+          <button type="submit" class="btn-white">สมัครสมาชิก</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <!-- Toast แจ้งเตือน -->
+  <div id="toast" class="toast hidden">
+    <h4 id="toast-title">Success</h4>
+    <p id="toast-message">Operation completed.</p>
+  </div>
+
+  <!-- เชื่อมกับไฟล์ JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>

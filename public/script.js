@@ -25,3 +25,96 @@ myCarousel.addEventListener('mouseleave', function () {
     carousel.cycle(); // สั่งให้กลับมาเลื่อนอัตโนมัติ
 });
 
+// สลับฟอร์ม Login/Register
+function switchTab(tab) {
+  const loginForm = document.getElementById('login-form');
+  const registerForm = document.getElementById('register-form');
+  const toggleBg = document.getElementById('toggle-bg');
+  const btnLogin = document.getElementById('btn-login');
+  const btnRegister = document.getElementById('btn-register');
+
+  if (tab === 'login') {
+    // แสดงฟอร์ม Login
+    loginForm.classList.add('active-form');
+    loginForm.classList.remove('hidden-form');
+    registerForm.classList.add('hidden-form');
+    registerForm.classList.remove('active-form');
+
+    // ปรับ toggle bar
+    toggleBg.style.transform = 'translateX(0%)';
+    btnLogin.classList.add('active');
+    btnRegister.classList.remove('active');
+  } else {
+    // แสดงฟอร์ม Register
+    registerForm.classList.add('active-form');
+    registerForm.classList.remove('hidden-form');
+    loginForm.classList.add('hidden-form');
+    loginForm.classList.remove('active-form');
+
+    // ปรับ toggle bar
+    toggleBg.style.transform = 'translateX(100%)';
+    btnRegister.classList.add('active');
+    btnLogin.classList.remove('active');
+  }
+}
+                                       // ระบบตรวจรหัส ล็อกอิน
+// ฟังก์ชันสลับฟอร์ม
+function switchTab(tab) {
+  const loginForm = document.getElementById('login-form');
+  const registerForm = document.getElementById('register-form');
+  const toggleBg = document.getElementById('toggle-bg');
+  const btnLogin = document.getElementById('btn-login');
+  const btnRegister = document.getElementById('btn-register');
+
+  if (tab === 'login') {
+    loginForm.classList.add('active-form');
+    loginForm.classList.remove('hidden-form');
+    registerForm.classList.add('hidden-form');
+    registerForm.classList.remove('active-form');
+
+    toggleBg.style.transform = 'translateX(0%)';
+    btnLogin.classList.add('active');
+    btnRegister.classList.remove('active');
+  } else {
+    registerForm.classList.add('active-form');
+    registerForm.classList.remove('hidden-form');
+    loginForm.classList.add('hidden-form');
+    loginForm.classList.remove('active-form');
+
+    toggleBg.style.transform = 'translateX(100%)';
+    btnRegister.classList.add('active');
+    btnLogin.classList.remove('active');
+  }
+}
+
+// ฟังก์ชัน Login
+function handleLogin(e) {
+  e.preventDefault();
+  showToast('WELCOME BACK', 'เข้าสู่ระบบสำเร็จ');
+}
+
+// ฟังก์ชัน Register
+function handleRegister(e) {
+  e.preventDefault();
+  const pass = document.getElementById('reg-pass').value;
+  const confirmPass = document.getElementById('reg-confirm-pass').value;
+
+  if (pass !== confirmPass) {
+    alert('รหัสผ่านไม่ตรงกัน');
+    return;
+  }
+  showToast('REGISTERED', 'สมัครสมาชิกสำเร็จ');
+  switchTab('login'); // กลับไปหน้า Login หลังสมัครเสร็จ
+}
+
+// Toast แจ้งเตือน
+function showToast(title, message) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toast-title').innerText = title;
+  document.getElementById('toast-message').innerText = message;
+
+  toast.classList.remove('hidden');
+  setTimeout(() => {
+    toast.classList.add('hidden');
+  }, 3000);
+}
