@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Shopping Cart — HIENDBRANDS™</title>
+    
+    <link type="text/css" rel="stylesheet" href="Main.css" />
+    <link rel="stylesheet" href="Main.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="main.html" class="logo">HIENDBRANDS&trade;</a>
+        
+        <nav>
+            <ul class="nav-links">
+                <li><a href="main.html" class="menu-link">NEW ARRIVAL</a></li>
+                <li><a href="#" class="menu-link">COLLABORATION&reg;</a></li>
+                <li><a href="Runnigpage.html" class="menu-link">RUNNING</a></li>
+                <li><a href="#" class="menu-link">SHOP</a></li>
+                <li><a href="sale.html" class="menu-link">SALE</a></li>
+            </ul>
+        </nav>
+
+        <div class="nav-icons">
+            <a href="#" class="icon-link">
+                <img src="pic/loupe.png" alt="Search">
+            </a>
+            <a href="login_register.html" class="icon-link">
+                <img src="pic/user.png" alt="User">
+            </a>
+            <a href="cart.html" class="icon-link">
+                <img src="pic/parcel.png" alt="Cart">
+            </a>
+            <div class="lang-selector">
+                TH <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>  
+    </header>
+
+    <div class="cart-wrapper">
+        <div class="cart-header">
+            <h1 class="cart-title">Shopping Cart</h1>
+            <span class="cart-count" id="header-cart-count">0 ITEMS</span>
+        </div>
+
+        <div class="cart-container">
+            <!-- พื้นที่สำหรับแสดงรายการสินค้า (ว่างไว้ก่อน เดี๋ยว JS มาเติม) -->
+            <div class="cart-items" id="cart-items-container">
+                <!-- เนื้อหาจะถูกสร้างโดย cart.js -->
+            </div>
+
+            <!-- ส่วนสรุปยอดเงิน -->
+            <div class="order-summary">
+                <h2 class="summary-title">Order Summary</h2>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">฿0.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span id="grand-total">฿0.00</span>
+                </div>
+                <button class="checkout-btn" onclick="alert('Proceed to Payment Gateway...')">Proceed to Checkout</button>
+                <a href="main.html" class="continue-shopping">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script สำหรับหน้าตะกร้า (ตาม path ที่ระบุ) -->
+    <script src="public/cart/cart.js"></script>
+
+</body>
+</html>
