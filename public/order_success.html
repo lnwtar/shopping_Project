@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed — HIENDBRANDS™</title>
+    
+    <!-- Link ไปยัง CSS หลัก (ถอยกลับ 2 ชั้น) -->
+    <link type="text/css" rel="stylesheet" href="../../Main.css" />
+    
+    <!-- Link ไปยัง CSS เฉพาะหน้านี้ (ไฟล์แยก) -->
+    <link rel="stylesheet" href="../../success.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navbar Minimal -->
+    <header class="navbar" style="padding: 20px; text-align: center; border-bottom: 1px solid #eee;">
+        <a href="../../main.html" class="logo" style="font-size: 1.5rem; font-weight: 900; color: #000; text-decoration: none;">HIENDBRANDS&trade;</a>
+    </header>
+
+    <div class="success-wrapper">
+        <div class="icon-circle">
+            <i class="fas fa-check"></i>
+        </div>
+        
+        <h1 class="thank-you-text">Thank You!</h1>
+        <p class="order-desc">
+            ขอบคุณสำหรับการสั่งซื้อสินค้ากับเรา<br>
+            เราได้รับคำสั่งซื้อของคุณเรียบร้อยแล้ว และกำลังดำเนินการจัดเตรียมสินค้า
+        </p>
+
+        <div class="order-info-card">
+            <div class="order-id-label">Order Number</div>
+            <div class="order-id-value" id="display-order-id">#ORD-XXXXXX</div>
+            <p class="email-note">อีเมลยืนยันคำสั่งซื้อได้ถูกส่งไปที่ <strong id="display-email">your@email.com</strong></p>
+        </div>
+
+        <div class="btn-group">
+            <a href="../../profile.html" class="btn btn-outline">ดูประวัติการสั่งซื้อ</a>
+            <a href="../../main.html" class="btn btn-primary">เลือกซื้อสินค้าต่อ</a>
+        </div>
+    </div>
+
+    <!-- Link ไปยัง JavaScript (ไฟล์แยก) -->
+    <script src="../../order_success.js"></script>
+
+</body>
+</html>
