@@ -1,12 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- ส่วนที่ 1: ระบบเลือกไซส์ (ถ้ามีปุ่มให้เลือก) ---
+    // --- ส่วนที่ 1: ระบบเลือกไซส์ ---
     const sizeBtns = document.querySelectorAll('.size-btn');
     sizeBtns.forEach(btn => {
         btn.addEventListener('click', function() {
-            // ล้างการเลือกเก่า
             document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
-            // เลือกปุ่มใหม่
             this.classList.add('selected');
         });
     });
@@ -17,30 +15,30 @@ document.addEventListener('DOMContentLoaded', () => {
     if (addToCartBtn) {
         addToCartBtn.addEventListener('click', function() {
             
-            // 1. ตรวจสอบว่าเลือกไซส์หรือยัง (ถ้าสินค้ามีให้เลือกไซส์)
+            // 1. ตรวจสอบไซส์
             const selectedSizeBtn = document.querySelector('.size-btn.selected');
-            let selectedSize = 'Free Size'; // ค่าเริ่มต้นถ้าไม่มีปุ่มให้เลือก
+            let selectedSize = 'Free Size';
 
             if (sizeBtns.length > 0) {
                 if (!selectedSizeBtn) {
                     alert('กรุณาเลือกไซส์ก่อน (Please select a size)');
-                    return; // หยุดทำงานถ้ายังไม่เลือก
+                    return; 
                 }
                 selectedSize = selectedSizeBtn.innerText;
             }
 
-            // 2. ดึงข้อมูลจากปุ่ม HTML (ที่คุณพิมพ์ data-* ไว้)
+            // 2. ดึงข้อมูล
             const productData = {
-                id: this.dataset.id,           // run007
-                name: this.dataset.name,       // AuraLite™ T‑Shirt
-                price: parseInt(this.dataset.price), // 8790 (แปลงเป็นตัวเลข)
-                image: this.dataset.image,     // ../../running/run7.webp
+                id: this.dataset.id,           
+                name: this.dataset.name,       
+                price: parseInt(this.dataset.price), 
+                image: this.dataset.image,     
                 color: this.dataset.color || 'Standard',
-                size: selectedSize,            // ไซส์ที่เลือก
-                qty: 1                         // จำนวนเริ่มต้น
+                size: selectedSize,            
+                qty: 1                         
             };
 
-            // 3. ส่งข้อมูลไปเก็บใน LocalStorage (ตะกร้าสินค้า)
+            // 3. ส่งไปบันทึกและเปลี่ยนหน้า
             addToLocalStorage(productData);
         });
     }
@@ -48,31 +46,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ฟังก์ชันช่วยบันทึกข้อมูล
 function addToLocalStorage(newItem) {
-    // ดึงตะกร้าเดิมมาดู (ถ้าไม่มีให้สร้าง array ว่าง [])
     let cart = JSON.parse(localStorage.getItem('myCart')) || [];
 
-    // เช็คว่ามีสินค้านี้ (ID เดียวกัน + ไซส์เดียวกัน) อยู่แล้วไหม?
     const existingIndex = cart.findIndex(item => item.id === newItem.id && item.size === newItem.size);
 
     if (existingIndex > -1) {
-        // ถ้ามีแล้ว -> แค่เพิ่มจำนวน
         cart[existingIndex].qty += 1;
     } else {
-        // ถ้ายังไม่มี -> เพิ่มสินค้าใหม่ต่อท้าย
         cart.push(newItem);
     }
 
-    // บันทึกกลับลงไปในเครื่อง
     localStorage.setItem('myCart', JSON.stringify(cart));
     
-    // แจ้งเตือนลูกค้า
-    alert(`เพิ่ม "${newItem.name}" (${newItem.size}) ลงตะกร้าเรียบร้อย!`);
-    
-    // (Optional) ถ้ามีไอคอนตะกร้าบนแถบเมนู ให้ update ตัวเลขทันที
-    updateNavBadge();
+    // --- [จุดสำคัญที่แก้ไข] ถามเพื่อเปลี่ยนหน้า ---
+    // ใช้ confirm เพื่อถามผู้ใช้
+    if(confirm(`เพิ่ม "${newItem.name}" ลงตะกร้าเรียบร้อย!\nต้องการไปที่หน้าตะกร้าสินค้าเพื่อชำระเงินเลยหรือไม่?`)) {
+        
+        // สั่งเปลี่ยนหน้าไปยัง cart.html
+        // *** หมายเหตุ: ต้องแก้ Path ให้ตรงกับที่อยู่ไฟล์จริงของคุณ ***
+        // ถ้าหน้าสินค้าอยู่ลึก 2 ชั้น (เช่น pagethaitanium/thaishirt1/) และ cart อยู่ใน public/cart/
+        window.location.href = '../../cart.html'; 
+        
+    } else {
+        // ถ้ากด Cancel (เลือกซื้อต่อ) ก็แค่อัปเดตตัวเลข
+        updateNavBadge();
+    }
 }
 
-// ฟังก์ชันอัปเดตตัวเลขแดงๆ บน Navbar
+// ฟังก์ชันอัปเดตตัวเลขบน Navbar
 function updateNavBadge() {
     const cart = JSON.parse(localStorage.getItem('myCart')) || [];
     const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
@@ -84,5 +85,5 @@ function updateNavBadge() {
     }
 }
 
-// เรียกให้ update ตัวเลขทันทีที่เข้าหน้าเว็บ
+// เรียก update ทันทีที่โหลด
 updateNavBadge();

@@ -1,100 +1,123 @@
-const express = require('express');
-const pool = require('../db'); 
-const router = express.Router();
+document.addEventListener('DOMContentLoaded', () => {
+    loadCartItems();
+});
 
-// 1. ดึงข้อมูลตะกร้า (GET) - เพิ่ม size, color มาแสดง
-router.get('/:userId', async (req, res) => {
-    const { userId } = req.params;
-    try {
-        const sql = `
-            SELECT 
-                ci.id as item_id, 
-                ci.quantity, 
-                ci.size,       -- เพิ่ม
-                ci.color,      -- เพิ่ม
-                p.name as product_name, 
-                p.price, 
-                p.image,    
-                ci.product_id
-            FROM carts c
-            JOIN cart_items ci ON c.id = ci.cart_id
-            JOIN products p ON ci.product_id = p.id
-            WHERE c.user_id = ? AND c.status = 'active'
-        `;
-        const [rows] = await pool.query(sql, [userId]);
+// ฟังก์ชันโหลดข้อมูลจาก LocalStorage มาแสดงผล
+function loadCartItems() {
+    const container = document.getElementById('cart-items-container');
+    
+    // 1. ดึงข้อมูลจากกล่องที่ชื่อ 'myCart' (ต้องชื่อเดียวกับใน product_handler.js)
+    const cart = JSON.parse(localStorage.getItem('myCart')) || [];
+
+    // 2. ถ้าตะกร้าว่าง
+    if (cart.length === 0) {
+        if(container) {
+            container.innerHTML = `
+                <div style="text-align:center; padding:50px; color:#666;">
+                    <i class="fas fa-shopping-basket" style="font-size:48px; margin-bottom:20px;"></i>
+                    <h3>ตะกร้าสินค้าว่างเปล่า</h3>
+                    <p>ยังไม่มีสินค้าในตะกร้าของคุณ</p>
+                    <a href="../../main.html" style="text-decoration:underline; font-weight:bold;">กลับไปเลือกซื้อสินค้า</a>
+                </div>`;
+        }
+        updateTotals(0);
+        updateHeaderCount(0);
+        return;
+    }
+
+    // 3. ถ้ามีสินค้า ให้สร้าง HTML
+    if(container) {
+        container.innerHTML = ''; // เคลียร์ของเก่า
         
-        let total = 0;
-        let count = 0;
-        rows.forEach(item => {
-            total += parseFloat(item.price) * item.quantity;
-            count += item.quantity;
+        cart.forEach((product, index) => {
+            const html = `
+            <div class="cart-item">
+                <img src="${product.image}" onerror="this.src='https://via.placeholder.com/150'" class="item-image">
+                <div class="item-details">
+                    <h3 class="item-name">${product.name}</h3>
+                    <p class="item-meta">
+                        Size: <strong>${product.size}</strong> | Color: ${product.color}
+                    </p>
+                    <p class="item-price">฿${product.price.toLocaleString()}</p>
+                    
+                    <div class="quantity-control">
+                        <button class="qty-btn" onclick="updateCartQty(${index}, -1)">-</button>
+                        <input type="text" value="${product.qty}" class="qty-input" readonly>
+                        <button class="qty-btn" onclick="updateCartQty(${index}, 1)">+</button>
+                    </div>
+                </div>
+                <button class="remove-btn" onclick="removeCartItem(${index})">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            `;
+            container.innerHTML += html;
         });
-
-        res.json({ items: rows, total, count });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'ดึงข้อมูลไม่สำเร็จ' });
     }
-});
 
-// 2. เพิ่มสินค้า (POST) - รับ size, color และเช็คซ้ำแบบละเอียด
-router.post('/add', async (req, res) => {
-    // รับค่า size และ color เพิ่มเข้ามา
-    const { userId, productId, quantity, size, color } = req.body;
+    // 4. คำนวณยอดเงินรวม
+    calculateTotal(cart);
+}
 
-    try {
-        // A. หาตะกร้า
-        const [carts] = await pool.query('SELECT id FROM carts WHERE user_id = ? AND status = "active"', [userId]);
-        let cartId;
-        if (carts.length === 0) {
-            const [newCart] = await pool.query('INSERT INTO carts (user_id, status) VALUES (?, "active")', [userId]);
-            cartId = newCart.insertId;
-        } else {
-            cartId = carts[0].id;
-        }
+// ฟังก์ชันเพิ่ม/ลดจำนวน
+window.updateCartQty = function(index, change) {
+    let cart = JSON.parse(localStorage.getItem('myCart')) || [];
+    
+    // เปลี่ยนจำนวน
+    cart[index].qty += change;
+    
+    // ห้ามต่ำกว่า 1
+    if (cart[index].qty < 1) cart[index].qty = 1;
+    
+    // บันทึกทับลงเครื่อง
+    localStorage.setItem('myCart', JSON.stringify(cart));
+    
+    // โหลดหน้าจอใหม่เพื่อให้ตัวเลขเปลี่ยน
+    loadCartItems();
+};
 
-        // B. เช็คสินค้าซ้ำ (ต้องเช็คทั้ง Product ID + Size + Color)
-        // ถ้าเสื้อลายเดิม แต่คนละไซส์ ถือเป็นคนละรายการ
-        const sqlCheck = `SELECT id, quantity FROM cart_items WHERE cart_id = ? AND product_id = ? AND size = ? AND color = ?`;
-        const [items] = await pool.query(sqlCheck, [cartId, productId, size, color]);
-
-        if (items.length > 0) {
-            // มีไซส์นี้สีนี้แล้ว -> บวกเพิ่ม
-            const newQty = items[0].quantity + (quantity || 1);
-            await pool.query('UPDATE cart_items SET quantity = ? WHERE id = ?', [newQty, items[0].id]);
-        } else {
-            // ยังไม่มี -> เพิ่มใหม่ (บันทึก size, color ด้วย)
-            const [product] = await pool.query('SELECT price FROM products WHERE id = ?', [productId]);
-            const price = product[0].price;
-
-            const sqlInsert = `INSERT INTO cart_items (cart_id, product_id, quantity, unit_price, size, color) VALUES (?, ?, ?, ?, ?, ?)`;
-            await pool.query(sqlInsert, [cartId, productId, (quantity || 1), price, size, color]);
-        }
-
-        res.json({ message: 'เพิ่มสินค้าเรียบร้อย' });
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'เพิ่มสินค้าไม่สำเร็จ' });
+// ฟังก์ชันลบสินค้า
+window.removeCartItem = function(index) {
+    if(confirm('ต้องการลบสินค้านี้ออกจากตะกร้า?')) {
+        let cart = JSON.parse(localStorage.getItem('myCart')) || [];
+        cart.splice(index, 1); // ลบตัวที่ index นั้น
+        localStorage.setItem('myCart', JSON.stringify(cart));
+        loadCartItems();
     }
-});
+};
 
-// 3. อัปเดต และ 4. ลบ (ใช้โค้ดเดิมได้เลย เพราะอ้างอิงตาม item_id ที่ไม่ซ้ำกันอยู่แล้ว)
-router.post('/update', async (req, res) => {
-    const { itemId, quantity } = req.body;
-    if (quantity < 1) return res.status(400).json({ error: 'จำนวนผิดพลาด' });
-    try {
-        await pool.query('UPDATE cart_items SET quantity = ? WHERE id = ?', [quantity, itemId]);
-        res.json({ message: 'อัปเดตเรียบร้อย' });
-    } catch (err) { res.status(500).json({ error: 'Failed' }); }
-});
+// ฟังก์ชันคำนวณเงิน
+function calculateTotal(cart) {
+    let total = 0;
+    let itemCount = 0;
 
-router.post('/remove', async (req, res) => {
-    const { itemId } = req.body;
-    try {
-        await pool.query('DELETE FROM cart_items WHERE id = ?', [itemId]);
-        res.json({ message: 'ลบเรียบร้อย' });
-    } catch (err) { res.status(500).json({ error: 'Failed' }); }
-});
+    cart.forEach(item => {
+        total += item.price * item.qty;
+        itemCount += item.qty;
+    });
 
-module.exports = router;
+    updateTotals(total);
+    updateHeaderCount(itemCount);
+}
+
+// อัปเดตตัวเลขราคา
+function updateTotals(total) {
+    const formatted = '฿' + total.toLocaleString('en-US', {minimumFractionDigits: 2});
+    const subtotalEl = document.getElementById('subtotal');
+    const grandTotalEl = document.getElementById('grand-total');
+    
+    if(subtotalEl) subtotalEl.innerText = formatted;
+    if(grandTotalEl) grandTotalEl.innerText = formatted;
+}
+
+// อัปเดตจำนวนสินค้าตรงหัวข้อ และ Navbar
+function updateHeaderCount(count) {
+    const headerCount = document.getElementById('header-cart-count');
+    if(headerCount) headerCount.innerText = count + " ITEMS";
+    
+    const navBadge = document.getElementById('nav-cart-count');
+    if(navBadge) {
+        navBadge.innerText = count;
+        navBadge.style.display = count > 0 ? 'block' : 'none';
+    }
+}
