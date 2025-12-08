@@ -27,3 +27,28 @@ router.post('/register', async (req, res) => {
 });
 
 module.exports = router;
+
+async function login(email, password) {
+    try {
+        const response = await fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            // [หัวใจสำคัญ] บันทึกข้อมูล User ลง LocalStorage
+            localStorage.setItem('user_session', JSON.stringify(data.user));
+            localStorage.setItem('user_id', data.user.id); // เก็บ ID แยกไว้ใช้ง่ายๆ กับ API ตะกร้า
+
+            alert('ยินดีต้อนรับ ' + data.user.username);
+            window.location.href = 'main.html'; // กลับหน้าหลัก
+        } else {
+            alert('ล็อกอินไม่สำเร็จ: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}

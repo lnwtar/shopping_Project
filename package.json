@@ -19,6 +19,8 @@
   "homepage": "https://github.com/lnwtar/shopping_Project#readme",
   "dependencies": {
     "bcryptjs": "^3.0.3",
+    "body-parser": "^2.2.1",
+    "cors": "^2.8.5",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.0.2",
