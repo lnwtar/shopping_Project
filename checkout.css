@@ -1,0 +1,143 @@
+/* Base Styles */
+body { 
+    font-family: 'Prompt', sans-serif; 
+    background-color: #f9f9f9; 
+    margin: 0; /* Reset body margin */
+}
+
+.checkout-wrapper {
+    max-width: 1200px; 
+    margin: 40px auto; 
+    padding: 40px;
+    display: grid; 
+    grid-template-columns: 1.5fr 1fr; 
+    gap: 40px;
+}
+
+/* Section Styling */
+.section-header { 
+    font-size: 1.5rem; 
+    font-weight: 700; 
+    margin-bottom: 20px; 
+    border-bottom: 2px solid #eee; 
+    padding-bottom: 10px; 
+}
+
+.checkout-card { 
+    background: #fff; 
+    padding: 30px; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+    margin-bottom: 30px; 
+}
+
+/* Form Styling */
+.form-group { 
+    margin-bottom: 15px; 
+}
+
+.form-row { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px; 
+}
+
+label { 
+    display: block; 
+    margin-bottom: 5px; 
+    font-weight: 500; 
+    font-size: 0.9rem; 
+}
+
+input, select, textarea {
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid #ddd; 
+    border-radius: 5px;
+    font-family: inherit; 
+    font-size: 1rem;
+    box-sizing: border-box; /* สำคัญ: ไม่ให้ padding ดันขนาดกล่อง */
+}
+
+input:focus, select:focus, textarea:focus { 
+    outline: none; 
+    border-color: #000; 
+}
+
+/* Payment Options */
+.payment-option {
+    display: flex; 
+    align-items: center; 
+    gap: 15px;
+    padding: 15px; 
+    border: 1px solid #ddd; 
+    border-radius: 8px;
+    margin-bottom: 10px; 
+    cursor: pointer; 
+    transition: 0.2s;
+}
+
+.payment-option:hover { 
+    border-color: #000; 
+}
+
+.payment-option.selected { 
+    border-color: #000; 
+    background-color: #fcfcfc; 
+    border-width: 2px; 
+}
+
+.payment-option input { 
+    width: auto; 
+}
+
+/* Order Summary (Right Column) */
+.summary-card { 
+    position: sticky; 
+    top: 100px; 
+}
+
+.summary-item { 
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 15px; 
+    font-size: 0.95rem; 
+}
+
+.summary-total { 
+    display: flex; 
+    justify-content: space-between; 
+    margin-top: 20px; 
+    padding-top: 20px; 
+    border-top: 2px solid #eee;
+    font-size: 1.2rem; 
+    font-weight: 700; 
+}
+
+.btn-place-order {
+    width: 100%; 
+    background: #000; 
+    color: #fff; 
+    padding: 15px;
+    border: none; 
+    border-radius: 5px; 
+    font-size: 1.1rem; 
+    font-weight: 600;
+    cursor: pointer; 
+    margin-top: 20px; 
+    transition: 0.2s;
+}
+
+.btn-place-order:hover { 
+    background: #333; 
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .checkout-wrapper { 
+        grid-template-columns: 1fr; 
+    }
+    .form-row { 
+        grid-template-columns: 1fr; 
+    }
+}

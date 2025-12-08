@@ -1,0 +1,100 @@
+/* ตั้งค่าพื้นฐาน */
+body { 
+    font-family: 'Prompt', sans-serif; 
+    background-color: #fff; 
+    color: #333; 
+}
+
+/* กล่องเนื้อหาหลัก */
+.success-wrapper {
+    max-width: 600px;
+    margin: 80px auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* ไอคอนวงกลมสีเขียว */
+.icon-circle {
+    width: 100px; height: 100px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 50px;
+    margin: 0 auto 30px;
+    box-shadow: 0 10px 20px rgba(40, 167, 69, 0.2);
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* อนิเมชันเด้งดึ๋ง */
+@keyframes popIn {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* ข้อความขอบคุณ */
+.thank-you-text {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.order-desc {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* การ์ดข้อมูลออเดอร์ */
+.order-info-card {
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    border: 1px solid #eee;
+}
+
+.order-id-label { 
+    font-size: 0.9rem; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    color: #888; 
+}
+
+.order-id-value { 
+    font-size: 1.5rem; 
+    font-weight: 600; 
+    color: #000; 
+    margin: 5px 0 15px; 
+    letter-spacing: 1px; 
+}
+
+.email-note { font-size: 0.9rem; color: #555; }
+
+/* กลุ่มปุ่มกด */
+.btn-group {
+    display: flex; gap: 15px; justify-content: center;
+}
+
+.btn {
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+    min-width: 160px;
+}
+
+.btn-primary { background: #000; color: #fff; border: 2px solid #000; }
+.btn-primary:hover { background: #333; border-color: #333; transform: translateY(-2px); }
+
+.btn-outline { background: transparent; color: #000; border: 2px solid #ddd; }
+.btn-outline:hover { border-color: #000; color: #000; }
+
+/* Responsive สำหรับมือถือ */
+@media (max-width: 500px) {
+    .btn-group { flex-direction: column; }
+    .btn { width: 100%; }
+}

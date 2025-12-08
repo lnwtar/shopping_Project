@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout — HIENDBRANDS™</title>
+    
+    <!-- Link CSS หลัก -->
+    <link type="text/css" rel="stylesheet" href="../../Main.css" />
+    <!-- Link CSS เฉพาะหน้า Checkout (ไฟล์แยก) -->
+    <link rel="stylesheet" href="checkout.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navbar (ย่อ) -->
+    <header class="navbar" style="background:#fff; padding:15px 40px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
+        <a href="../../main.html" class="logo" style="font-size:1.5rem; font-weight:900; color:#000; text-decoration:none;">HIENDBRANDS&trade;</a>
+        <div style="font-weight:600;">SECURE CHECKOUT</div>
+    </header>
+
+    <div class="checkout-wrapper">
+        
+        <!-- Left Column: Forms -->
+        <div class="checkout-left">
+            
+            <!-- 1. Shipping Address -->
+            <div class="checkout-card">
+                <h2 class="section-header"><i class="fas fa-map-marker-alt"></i> ที่อยู่จัดส่ง (Shipping Address)</h2>
+                <form id="checkout-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ชื่อ (First Name)</label>
+                            <input type="text" id="fname" required placeholder="สมชาย">
+                        </div>
+                        <div class="form-group">
+                            <label>นามสกุล (Last Name)</label>
+                            <input type="text" id="lname" required placeholder="ใจดี">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>เบอร์โทรศัพท์ (Phone)</label>
+                        <input type="tel" id="phone" required placeholder="0812345678">
+                    </div>
+
+                    <div class="form-group">
+                        <label>ที่อยู่ (Address)</label>
+                        <textarea id="address" rows="2" required placeholder="เลขที่บ้าน, หมู่บ้าน, ซอย, ถนน"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>จังหวัด (Province)</label>
+                            <select id="province">
+                                <option value="" disabled selected>เลือกจังหวัด</option>
+                                <option value="Bangkok">กรุงเทพมหานคร</option>
+                                <option value="Krabi">กระบี่</option>
+                                <option value="Kanchanaburi">กาญจนบุรี</option>
+                                <option value="Kalasin">กาฬสินธุ์</option>
+                                <option value="Kamphaeng Phet">กำแพงเพชร</option>
+                                <option value="Khon Kaen">ขอนแก่น</option>
+                                <option value="Chanthaburi">จันทบุรี</option>
+                                <option value="Chachoengsao">ฉะเชิงเทรา</option>
+                                <option value="Chonburi">ชลบุรี</option>
+                                <option value="Chai Nat">ชัยนาท</option>
+                                <option value="Chaiyaphum">ชัยภูมิ</option>
+                                <option value="Chumphon">ชุมพร</option>
+                                <option value="Chiang Rai">เชียงราย</option>
+                                <option value="Chiang Mai">เชียงใหม่</option>
+                                <option value="Trang">ตรัง</option>
+                                <option value="Trat">ตราด</option>
+                                <option value="Tak">ตาก</option>
+                                <option value="Nakhon Nayok">นครนายก</option>
+                                <option value="Nakhon Pathom">นครปฐม</option>
+                                <option value="Nakhon Phanom">นครพนม</option>
+                                <option value="Nakhon Ratchasima">นครราชสีมา</option>
+                                <option value="Nakhon Si Thammarat">นครศรีธรรมราช</option>
+                                <option value="Nakhon Sawan">นครสวรรค์</option>
+                                <option value="Nonthaburi">นนทบุรี</option>
+                                <option value="Narathiwat">นราธิวาส</option>
+                                <option value="Nan">น่าน</option>
+                                <option value="Bueng Kan">บึงกาฬ</option>
+                                <option value="Buriram">บุรีรัมย์</option>
+                                <option value="Pathum Thani">ปทุมธานี</option>
+                                <option value="Prachuap Khiri Khan">ประจวบคีรีขันธ์</option>
+                                <option value="Prachinburi">ปราจีนบุรี</option>
+                                <option value="Pattani">ปัตตานี</option>
+                                <option value="Phra Nakhon Si Ayutthaya">พระนครศรีอยุธยา</option>
+                                <option value="Phayao">พะเยา</option>
+                                <option value="Phang Nga">พังงา</option>
+                                <option value="Phatthalung">พัทลุง</option>
+                                <option value="Phichit">พิจิตร</option>
+                                <option value="Phitsanulok">พิษณุโลก</option>
+                                <option value="Phetchaburi">เพชรบุรี</option>
+                                <option value="Phetchabun">เพชรบูรณ์</option>
+                                <option value="Phrae">แพร่</option>
+                                <option value="Phuket">ภูเก็ต</option>
+                                <option value="Maha Sarakham">มหาสารคาม</option>
+                                <option value="Mukdahan">มุกดาหาร</option>
+                                <option value="Mae Hong Son">แม่ฮ่องสอน</option>
+                                <option value="Yala">ยะลา</option>
+                                <option value="Yasothon">ยโสธร</option>
+                                <option value="Roi Et">ร้อยเอ็ด</option>
+                                <option value="Ranong">ระนอง</option>
+                                <option value="Rayong">ระยอง</option>
+                                <option value="Ratchaburi">ราชบุรี</option>
+                                <option value="Lopburi">ลพบุรี</option>
+                                <option value="Lampang">ลำปาง</option>
+                                <option value="Lamphun">ลำพูน</option>
+                                <option value="Loei">เลย</option>
+                                <option value="Sisaket">ศรีสะเกษ</option>
+                                <option value="Sakon Nakhon">สกลนคร</option>
+                                <option value="Songkhla">สงขลา</option>
+                                <option value="Satun">สตูล</option>
+                                <option value="Samut Prakan">สมุทรปราการ</option>
+                                <option value="Samut Songkhram">สมุทรสงคราม</option>
+                                <option value="Samut Sakhon">สมุทรสาคร</option>
+                                <option value="Sa Kaeo">สระแก้ว</option>
+                                <option value="Saraburi">สระบุรี</option>
+                                <option value="Sing Buri">สิงห์บุรี</option>
+                                <option value="Sukhothai">สุโขทัย</option>
+                                <option value="Suphan Buri">สุพรรณบุรี</option>
+                                <option value="Surat Thani">สุราษฎร์ธานี</option>
+                                <option value="Surin">สุรินทร์</option>
+                                <option value="Nong Khai">หนองคาย</option>
+                                <option value="Nong Bua Lamphu">หนองบัวลำภู</option>
+                                <option value="Ang Thong">อ่างทอง</option>
+                                <option value="Amnat Charoen">อำนาจเจริญ</option>
+                                <option value="Udon Thani">อุดรธานี</option>
+                                <option value="Uttaradit">อุตรดิตถ์</option>
+                                <option value="Uthai Thani">อุทัยธานี</option>
+                                <option value="Ubon Ratchathani">อุบลราชธานี</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>รหัสไปรษณีย์ (Zip Code)</label>
+                            <input type="text" id="zipcode" required placeholder="10110">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 2. Payment Method -->
+            <div class="checkout-card">
+                <h2 class="section-header"><i class="fas fa-credit-card"></i> วิธีการชำระเงิน (Payment)</h2>
+                
+                <label class="payment-option selected" onclick="selectPayment(this)">
+                    <input type="radio" name="payment" value="qr" checked>
+                    <div>
+                        <strong>QR Code PromptPay</strong>
+                        <div style="font-size:0.8rem; color:#666;">สแกนจ่ายผ่านแอปธนาคาร</div>
+                    </div>
+                    <i class="fas fa-qrcode" style="margin-left:auto; font-size:1.5rem;"></i>
+                </label>
+
+                <label class="payment-option" onclick="selectPayment(this)">
+                    <input type="radio" name="payment" value="cod">
+                    <div>
+                        <strong>เก็บเงินปลายทาง (COD)</strong>
+                        <div style="font-size:0.8rem; color:#666;">จ่ายเงินเมื่อได้รับของ</div>
+                    </div>
+                    <i class="fas fa-truck" style="margin-left:auto; font-size:1.5rem;"></i>
+                </label>
+            </div>
+
+        </div>
+
+        <!-- Right Column: Order Summary -->
+        <div class="checkout-right">
+            <div class="checkout-card summary-card">
+                <h2 class="section-header">สรุปคำสั่งซื้อ</h2>
+                
+                <!-- รายการสินค้าจะถูกดึงมาโชว์ตรงนี้ -->
+                <div id="checkout-items"></div>
+                
+                <hr style="margin: 20px 0; border:0; border-top:1px solid #eee;">
+
+                <div class="summary-item">
+                    <span>ยอดรวมสินค้า (Subtotal)</span>
+                    <span id="summary-subtotal">฿0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span>ค่าจัดส่ง (Shipping)</span>
+                    <span id="summary-shipping">FREE</span>
+                </div>
+                
+                <div class="summary-total">
+                    <span>ยอดสุทธิ (Total)</span>
+                    <span id="summary-total">฿0.00</span>
+                </div>
+
+                <button class="btn-place-order" onclick="placeOrder()">สั่งซื้อสินค้า (Place Order)</button>
+                <a href="cart.html" style="display:block; text-align:center; margin-top:15px; font-size:0.9rem; text-decoration:underline;">กลับไปแก้ไขตะกร้า</a>
+            </div>
+        </div>
+
+    </div>
+    <script src="../../checkout.js"></script>
+
+</body>
+</html>
