@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตั้งค่าการอัปโหลดสินค้า</title>
+    <!-- Google Fonts -->
+    <link href="saller.css" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <a href="main.html" class="logo">HIENDBRANDS&trade;</a>
+
+        <nav>
+            <ul class="nav-links">
+                <li><a href="main.html" class="menu-link">NEW ARRIVAL</a></li>
+
+                <li class="has-dropdown type-wide">
+                    <a href="#" class="menu-link">CARNIVAL&reg;</a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-inner">
+                            <div class="dd-col">
+                                <span class="dd-header">Collection</span>
+                                <div class="dd-list">
+                                    <a href="thaitanium.html">CARNIVAL® X THAITANIUM</a>
+                                    <a href="Bigmountain.html">CARNIVAL® X Big Mountain</a>
+                                    <a href="topshirt.html">CARNIVAL® X TOP SECRET</a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </li>
+
+
+                <li class="has-dropdown type-box">
+                    <a href="Runnigpage.html" class="menu-link">RUNNING</a>
+                    
+                </li>
+
+                <li><a href="https://maps.app.goo.gl/w9taHNmVNb9xgCdX6" class="menu-link">SHOP</a></li>
+                
+                <li><a href="sale.html" class="menu-link">SALE</a></li>
+                <li><a href="#" class="menu-link">SALER</a></li>
+            </ul>
+        </nav>
+
+        <div class="nav-icons">
+            <a href="#" class="icon-link">
+                <img src="pic/loupe.png" alt="Search">
+            </a>
+            <a href="login_register.html" class="icon-link">
+                <img src="pic/user.png" alt="User">
+            </a>
+            <a href="cart.html" class="icon-link">
+                <img src="pic/parcel.png" alt="Cart">
+            </a>
+            <div class="lang-selector">
+                TH <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </header>
+    <!-------------------------------------------------------------------------------------------------------------------------------------->
+
+        
+    <div class="main-container">
+        
+        <main class="content-area">
+            <h1>รายละเอียดสินค้า</h1>
+            <p class="subtitle">กรอกข้อมูลสินค้าของคุณให้ครบถ้วน</p>
+
+            <form>
+                <!-- ชื่อสินค้า -->
+                <div class="form-group">
+                    <label class="form-label" for="productName">ชื่อสินค้า</label>
+                    <input type="text" id="productName" class="form-input" placeholder="เช่น เสื้อยืดคอกลม สีดำ รุ่น Limited">
+                </div>
+
+                <!-- รายละเอียด -->
+                <div class="form-group">
+                    <label class="form-label" for="productDesc">คำอธิบายสินค้า</label>
+                    <textarea id="productDesc" class="form-textarea" placeholder="บอกเล่าเกี่ยวกับสินค้าของคุณ..."></textarea>
+                </div>
+
+                <!-- รูปภาพ -->
+                <div class="form-group">
+                    <label class="form-label">รูปภาพสินค้า</label>
+                    <div class="image-upload-area">
+                        <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <div class="upload-text">คลิกเพื่ออัปโหลดรูปภาพ</div>
+                        <div class="upload-hint">PNG, JPG ขนาดไม่เกิน 5MB</div>
+                    </div>
+                </div>
+
+                <!-- ราคาและสต็อก -->
+                <div class="form-row">
+                    <div class="col-half">
+                        <div class="form-group">
+                            <label class="form-label" for="price">ราคา (บาท)</label>
+                            <input type="number" id="price" class="form-input" placeholder="0.00">
+                        </div>
+                    </div>
+                    <div class="col-half">
+                        <div class="form-group">
+                            <label class="form-label" for="stock">จำนวนสินค้า (ชิ้น)</label>
+                            <input type="number" id="stock" class="form-input" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="form-group">
+                    <label class="form-label">แท็กสินค้า (Product Tags)</label>
+                    <div class="tags-input-container" id="tagsContainer">
+                        <!-- แท็กจะถูกเพิ่มตรงนี้ด้วย JS -->
+                        <input type="text" class="tag-input" id="tagInput" placeholder="พิมพ์แท็กแล้วกด Enter...">
+                    </div>
+                    <p class="helper-text">กด Enter หรือ Comma (,) เพื่อเพิ่มแท็ก</p>
+                </div>
+
+                <!-- Buttons -->
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary">ยกเลิก</button>
+                    <button type="submit" class="btn btn-primary">บันทึกสินค้า</button>
+                </div>
+            </form>
+
+        </main>
+    </div>
+    
+    <script src="profile.js"></script>
+
+</body>
+</html>
