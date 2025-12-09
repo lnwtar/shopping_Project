@@ -1,0 +1,451 @@
+/* --- CSS Reset & Base --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f8f9fa;
+    /* พื้นหลังสีเทาอ่อนเพื่อให้ Content เด่นขึ้น */
+    color: #1c1e21;
+    padding-top: 70px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* =========================================
+   1. NAVBAR STYLING
+   ========================================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 40px;
+    border-bottom: 1px solid #e5e5e5;
+    z-index: 1000;
+}
+
+.logo {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #000;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    margin-right: 40px;
+    flex-shrink: 0;
+}
+
+nav {
+    height: 100%;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.menu-link {
+    white-space: nowrap;
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0 5px;
+    transition: color 0.2s;
+}
+
+.menu-link:hover {
+    color: #000;
+}
+
+.nav-icons {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.icon-link:hover {
+    opacity: 1;
+}
+
+.icon-link img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    display: block;
+}
+
+.lang-selector {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-left: 10px;
+    border-left: 1px solid #ddd;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    padding: 30px;
+    display: none;
+    min-width: 250px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.has-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dd-header {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.dd-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dd-list a {
+    font-size: 13px;
+    color: #666;
+    transition: 0.2s;
+}
+
+.dd-list a:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+/* =========================================
+   2. SELLER FORM STYLING
+   ========================================= */
+.seller-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px;
+    min-height: calc(100vh - 70px);
+}
+
+.seller-container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 750px;
+    padding: 50px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    height: fit-content;
+}
+
+.seller-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.seller-header h2 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #000;
+}
+
+.seller-header p {
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 30px;
+}
+
+.form-label {
+    display: block;
+    font-weight: 700;
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 0;
+    font-family: inherit;
+    font-size: 14px;
+    background-color: #fff;
+    transition: border-color 0.2s;
+    color: #333;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    border-color: #000;
+    outline: none;
+}
+
+.form-textarea {
+    height: 140px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+/* Tags System */
+.tags-input-container {
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    background-color: white;
+    min-height: 50px;
+    align-items: center;
+}
+
+.tags-input-container:focus-within {
+    border-color: #000;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    background-color: #000;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.tag-close {
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.tag-close:hover {
+    opacity: 1;
+}
+
+.tag-input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    flex-grow: 1;
+    font-size: 13px;
+    font-family: inherit;
+}
+
+/* Image Upload */
+.image-upload-box {
+    border: 1px dashed #ccc;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+    background: #fff;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-upload-box:hover {
+    border-color: #000;
+    background: #fafafa;
+}
+
+.image-upload-box i {
+    color: #000;
+    margin-bottom: 15px;
+    font-size: 32px;
+}
+
+.image-upload-box p {
+    font-size: 13px;
+    font-weight: 600;
+    color: #000;
+    text-transform: uppercase;
+}
+
+.image-upload-box span {
+    font-size: 12px;
+    color: #888;
+    margin-top: 5px;
+    font-weight: 400;
+    text-transform: none;
+}
+
+#previewArea {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.img-wrapper {
+    position: relative;
+    width: 100px;
+    height: 120px;
+    border: 1px solid #eee;
+    overflow: hidden;
+    background: #f9f9f9;
+}
+
+.preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.remove-img-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #000;
+    color: white;
+    border: none;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.remove-img-btn:hover {
+    background: #ff0000;
+}
+
+.add-more-box {
+    width: 100px;
+    height: 120px;
+    border: 1px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #888;
+    background: #fff;
+    transition: 0.2s;
+    font-size: 24px;
+}
+
+.add-more-box:hover {
+    border-color: #000;
+    color: #000;
+}
+
+/* Submit Button */
+.btn-submit {
+    background: #000;
+    color: #fff;
+    width: 100%;
+    padding: 18px;
+    border: none;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 40px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: opacity 0.2s;
+}
+
+.btn-submit:hover {
+    opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .logo {
+        margin-right: 20px;
+        font-size: 18px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .seller-wrapper {
+        padding: 30px 15px;
+    }
+
+    .seller-container {
+        padding: 30px 20px;
+    }
+}
