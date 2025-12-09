@@ -8,6 +8,7 @@
     <link href="saller.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Navigation Bar -->
     <header class="navbar">
         <a href="main.html" class="logo">HIENDBRANDS&trade;</a>
 
@@ -16,7 +17,7 @@
                 <li><a href="main.html" class="menu-link">NEW ARRIVAL</a></li>
 
                 <li class="has-dropdown type-wide">
-                    <a href="#" class="menu-link">CARNIVAL&reg;</a>
+                    <a href="#" class="menu-link">COLLABORATION&reg;</a>
                     <div class="dropdown-menu">
                         <div class="dropdown-inner">
                             <div class="dd-col">
@@ -27,46 +28,54 @@
                                     <a href="topshirt.html">CARNIVAL® X TOP SECRET</a>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </li>
 
-
                 <li class="has-dropdown type-box">
                     <a href="Runnigpage.html" class="menu-link">RUNNING</a>
-                    
                 </li>
 
+
+
                 <li><a href="https://maps.app.goo.gl/w9taHNmVNb9xgCdX6" class="menu-link">SHOP</a></li>
-                
+
                 <li><a href="sale.html" class="menu-link">SALE</a></li>
                 <li><a href="saller.html" class="menu-link">SELLER</a></li>
             </ul>
         </nav>
-
         <div class="nav-icons">
-            <a href="#" class="icon-link">
+            <a href="../../login_register.htm" class="icon-link" id="user-link">
                 <img src="pic/loupe.png" alt="Search">
             </a>
-            <a href="login_register.html" class="icon-link">
+
+            <!-- <a href="login_register.html" class="icon-link">
                 <img src="pic/user.png" alt="User">
+            </a> -->
+
+            <a href="profile.html" class="icon-link" id="icon-link">
+                <img src="pic/user.png" alt="User">
+                <span id="user-name-display" style="display:none; margin-left:5px; font-weight:bold;"></span>
             </a>
-            <a href="cart.html" class="icon-link">
+            
+            <a href="cart.html" class="icon-link" id="cart-link">
                 <img src="pic/parcel.png" alt="Cart">
+                <span id="nav-cart-count" class="cart-badge" style="display:none;">0</span>
             </a>
+
             <div class="lang-selector">
                 TH <i class="fas fa-chevron-down"></i>
             </div>
+            </a>
         </div>
-    </header>
     <!-------------------------------------------------------------------------------------------------------------------------------------->
 
         
     <div class="seller-wrapper">
         <div class="seller-container">
             <div class="seller-header">
-                <h2>SELLER CENTER</h2>
+                <h2>Seller Center</h2>
                 <p>Add Product Information</p>
             </div>
             
@@ -83,14 +92,14 @@
 
                 <div class="form-group">
                     <label class="form-label">Description</label>
-                    <textarea id="pDesc" class="form-textarea" placeholder="Product details, size, material..." required></textarea>
+                    <textarea id="pDesc" class="form-textarea" placeholder="Enter product details, size chart, material, etc." required></textarea>
                 </div>
 
                 <!-- TAGS SYSTEM -->
                 <div class="form-group">
-                    <label class="form-label">Tags (Type and press Enter)</label>
+                    <label class="form-label">Tags</label>
                     <div class="tags-input-container" id="tagsContainer">
-                        <input type="text" class="tag-input" id="tagInput" placeholder="Add a tag...">
+                        <input type="text" class="tag-input" id="tagInput" placeholder="Type and press Enter...">
                     </div>
                 </div>
 
@@ -101,9 +110,9 @@
                     
                     <!-- Upload Box -->
                     <div class="image-upload-box" id="uploadPlaceholder" onclick="document.getElementById('pImage').click()">
-                        <i class="fas fa-cloud-upload-alt" style="font-size: 36px; margin-bottom: 12px; color: #444;"></i>
-                        <p style="font-weight: 600;">Click to Upload Images</p>
-                        <p style="font-size: 12px; color: #888; margin-top: 5px;">(Supported: JPG, PNG)</p>
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Click to Upload Images</p>
+                        <span>(Supported: JPG, PNG)</span>
                     </div>
 
                     <!-- Gallery Preview Area -->
@@ -113,6 +122,7 @@
                 <button type="submit" class="btn-submit">POST PRODUCT</button>
             </form>
         </div>
+    </div>
     
     <script src="../../saller.js"></script>
     <script src="../../global_session.js"></script>
