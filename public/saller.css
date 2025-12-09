@@ -1,12 +1,21 @@
+/* --- CSS Reset & Base --- */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: #fff;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f8f9fa;
+    /* พื้นหลังสีเทาอ่อนเพื่อให้ Content เด่นขึ้น */
     color: #1c1e21;
     padding-top: 70px;
 }
@@ -20,7 +29,9 @@ ul {
     list-style: none;
 }
 
-/* --- Navbar Styles --- */
+/* =========================================
+   1. NAVBAR STYLING
+   ========================================= */
 .navbar {
     position: fixed;
     top: 0;
@@ -30,16 +41,25 @@ ul {
     background-color: #fff;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     padding: 0 40px;
     border-bottom: 1px solid #e5e5e5;
     z-index: 1000;
 }
 
 .logo {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 20px;
-    font-weight: 900;
+    font-weight: 800;
+    color: #000;
+    text-decoration: none;
     letter-spacing: 0.5px;
     margin-right: 40px;
+    flex-shrink: 0;
+}
+
+nav {
+    height: 100%;
 }
 
 .nav-links {
@@ -47,65 +67,72 @@ ul {
     align-items: center;
     gap: 20px;
     height: 100%;
-    margin-right: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
 }
 
 .menu-link {
-    font-size: 12px;
-    font-weight: 700;
+    white-space: nowrap;
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+    font-weight: 600;
     text-transform: uppercase;
     padding: 0 5px;
     transition: color 0.2s;
 }
 
 .menu-link:hover {
-    color: #555;
+    color: #000;
 }
 
 .nav-icons {
+    margin-left: auto;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 25px;
+}
+
+.icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.icon-link:hover {
+    opacity: 1;
 }
 
 .icon-link img {
     width: 20px;
     height: 20px;
     object-fit: contain;
-}
-
-.icon-link i {
-    font-size: 18px;
-    color: #333;
-}
-
-.cart-badge {
-    background: red;
-    color: white;
-    font-size: 10px;
-    padding: 2px 5px;
-    border-radius: 50%;
-    position: absolute;
-    top: -5px;
-    right: -5px;
+    display: block;
 }
 
 .lang-selector {
     font-size: 13px;
     font-weight: bold;
+    color: #000;
     cursor: pointer;
-    border-left: 1px solid #ddd;
-    padding-left: 15px;
-}
-
-/* Dropdown */
-.has-dropdown {
-    position: relative;
-    height: 100%;
     display: flex;
     align-items: center;
+    gap: 5px;
+    padding-left: 10px;
+    border-left: 1px solid #ddd;
 }
 
+/* Dropdown Menu */
 .dropdown-menu {
     position: absolute;
     top: 70px;
@@ -114,7 +141,8 @@ ul {
     border: 1px solid #e5e5e5;
     padding: 30px;
     display: none;
-    min-width: 200px;
+    min-width: 250px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .has-dropdown:hover .dropdown-menu {
@@ -126,79 +154,121 @@ ul {
     display: block;
     margin-bottom: 10px;
     font-size: 13px;
+    text-transform: uppercase;
+}
+
+.dd-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .dd-list a {
-    display: block;
-    font-size: 12px;
-    margin-bottom: 5px;
+    font-size: 13px;
     color: #666;
+    transition: 0.2s;
 }
 
 .dd-list a:hover {
     color: #000;
+    text-decoration: underline;
 }
 
-/* --- VIEW CONTROL --- */
-.view-section {
-    display: none;
+/* =========================================
+   2. SELLER FORM STYLING
+   ========================================= */
+.seller-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px;
     min-height: calc(100vh - 70px);
 }
 
-.view-section.active {
-    display: block;
-}
-
-/* --- 1. SELLER PAGE STYLES --- */
 .seller-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 40px;
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 750px;
+    padding: 50px;
     border: 1px solid #e5e5e5;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    height: fit-content;
 }
 
 .seller-header {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     text-align: center;
 }
 
+.seller-header h2 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #000;
+}
+
+.seller-header p {
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Form Elements */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .form-label {
     display: block;
-    font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .form-input,
 .form-textarea {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
+    padding: 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 0;
     font-family: inherit;
+    font-size: 14px;
+    background-color: #fff;
+    transition: border-color 0.2s;
+    color: #333;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    border-color: #000;
+    outline: none;
 }
 
 .form-textarea {
-    height: 120px;
+    height: 140px;
     resize: vertical;
+    line-height: 1.5;
 }
 
-/* New Tag System Styles */
+/* Tags System */
 .tags-input-container {
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 8px;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     background-color: white;
-    min-height: 45px;
+    min-height: 50px;
+    align-items: center;
+}
+
+.tags-input-container:focus-within {
+    border-color: #000;
 }
 
 .tag {
@@ -206,16 +276,22 @@ ul {
     align-items: center;
     background-color: #000;
     color: #fff;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .tag-close {
     margin-left: 8px;
     cursor: pointer;
     font-size: 14px;
+    opacity: 0.8;
+}
+
+.tag-close:hover {
+    opacity: 1;
 }
 
 .tag-input {
@@ -223,19 +299,19 @@ ul {
     outline: none;
     padding: 5px;
     flex-grow: 1;
-    font-size: 14px;
+    font-size: 13px;
+    font-family: inherit;
 }
 
-/* New Image Upload Styles */
+/* Image Upload */
 .image-upload-box {
-    border: 2px dashed #ddd;
-    border-radius: 8px;
-    padding: 30px;
+    border: 1px dashed #ccc;
+    padding: 40px;
     text-align: center;
     cursor: pointer;
     transition: 0.2s;
-    background: #f9f9f9;
-    min-height: 150px;
+    background: #fff;
+    min-height: 180px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -244,23 +320,44 @@ ul {
 
 .image-upload-box:hover {
     border-color: #000;
-    background: #f0f0f0;
+    background: #fafafa;
+}
+
+.image-upload-box i {
+    color: #000;
+    margin-bottom: 15px;
+    font-size: 32px;
+}
+
+.image-upload-box p {
+    font-size: 13px;
+    font-weight: 600;
+    color: #000;
+    text-transform: uppercase;
+}
+
+.image-upload-box span {
+    font-size: 12px;
+    color: #888;
+    margin-top: 5px;
+    font-weight: 400;
+    text-transform: none;
 }
 
 #previewArea {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 15px;
+    margin-top: 20px;
 }
 
 .img-wrapper {
     position: relative;
     width: 100px;
-    height: 100px;
-    border-radius: 6px;
-    overflow: hidden;
+    height: 120px;
     border: 1px solid #eee;
+    overflow: hidden;
+    background: #f9f9f9;
 }
 
 .preview-img {
@@ -271,31 +368,37 @@ ul {
 
 .remove-img-btn {
     position: absolute;
-    top: 2px;
-    right: 2px;
-    background: rgba(255, 0, 0, 0.8);
+    top: 5px;
+    right: 5px;
+    background: #000;
     color: white;
     border: none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     cursor: pointer;
     font-size: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 0.2s;
+}
+
+.remove-img-btn:hover {
+    background: #ff0000;
 }
 
 .add-more-box {
     width: 100px;
-    height: 100px;
-    border: 2px dashed #ddd;
-    border-radius: 6px;
+    height: 120px;
+    border: 1px dashed #ccc;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     color: #888;
+    background: #fff;
+    transition: 0.2s;
+    font-size: 24px;
 }
 
 .add-more-box:hover {
@@ -303,122 +406,8 @@ ul {
     color: #000;
 }
 
+/* Submit Button */
 .btn-submit {
-    background: #000;
-    color: #fff;
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 6px;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
-.btn-submit:hover {
-    opacity: 0.9;
-}
-
-/* --- 2. PRODUCT DETAIL STYLES --- */
-.product-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
-}
-
-@media(min-width: 768px) {
-    .product-container {
-        grid-template-columns: 1.5fr 1fr;
-    }
-}
-
-.product-gallery {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.product-image-area {
-    background: #f5f5f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 500px;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.main-img {
-    max-width: 100%;
-    max-height: 600px;
-    object-fit: contain;
-}
-
-.thumbnail-row {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 5px;
-}
-
-.thumb-img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border: 1px solid #ddd;
-    cursor: pointer;
-    opacity: 0.6;
-}
-
-.thumb-img.active {
-    border: 2px solid #000;
-    opacity: 1;
-}
-
-.product-info h1 {
-    font-size: 28px;
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-    line-height: 1.2;
-}
-
-.product-price {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 30px;
-}
-
-.product-desc {
-    font-size: 14px;
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 30px;
-    white-space: pre-line;
-}
-
-.tags-display {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 20px;
-}
-
-.tags-display span {
-    display: inline-block;
-    background: #000;
-    color: #fff;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-.add-cart-btn {
     background: #000;
     color: #fff;
     width: 100%;
@@ -426,24 +415,37 @@ ul {
     border: none;
     font-weight: 800;
     cursor: pointer;
+    margin-top: 40px;
+    font-size: 14px;
     text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: opacity 0.2s;
 }
 
-/* --- MAIN PAGE PLACEHOLDER --- */
-.hero {
-    text-align: center;
-    padding: 100px 20px;
+.btn-submit:hover {
+    opacity: 0.8;
 }
 
-.hero h2 {
-    font-size: 40px;
-    font-weight: 900;
-    margin-bottom: 20px;
-}
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 20px;
+    }
 
-.btn-shop {
-    padding: 10px 20px;
-    border: 2px solid #000;
-    font-weight: 700;
-    display: inline-block;
+    .logo {
+        margin-right: 20px;
+        font-size: 18px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .seller-wrapper {
+        padding: 30px 15px;
+    }
+
+    .seller-container {
+        padding: 30px 20px;
+    }
 }
