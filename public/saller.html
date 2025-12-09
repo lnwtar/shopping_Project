@@ -67,7 +67,7 @@
         
         <main class="content-area">
             <h1>รายละเอียดสินค้า</h1>
-            <p class="subtitle">กรอกข้อมูลสินค้าของคุณให้ครบถ้วน</p>
+            <p class="subtitle">กรอกข้อมูลสินค้าของคุณให้ครบถ้วนเพื่อแสดงบนหน้าร้านค้า</p>
 
             <form>
                 <!-- ชื่อสินค้า -->
@@ -82,19 +82,33 @@
                     <textarea id="productDesc" class="form-textarea" placeholder="บอกเล่าเกี่ยวกับสินค้าของคุณ..."></textarea>
                 </div>
 
-                <!-- รูปภาพ -->
+                <!-- รูปภาพ (แก้ไขให้รองรับหลายรูป) -->
                 <div class="form-group">
-                    <label class="form-label">รูปภาพสินค้า</label>
-                    <div class="image-upload-area">
-                        <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                        <div class="upload-text">คลิกเพื่ออัปโหลดรูปภาพ</div>
-                        <div class="upload-hint">PNG, JPG ขนาดไม่เกิน 5MB</div>
+                    <label class="form-label">รูปภาพสินค้า (สูงสุด 5 รูป)</label>
+                    
+                    <!-- Hidden File Input (เพิ่ม attribute multiple) -->
+                    <input type="file" id="imageInput" accept="image/*" multiple hidden>
+
+                    <div class="image-upload-area" id="uploadArea">
+                        
+                        <!-- Default State: Upload Prompt -->
+                        <div id="uploadPlaceholder">
+                            <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <div class="upload-text">คลิกเพื่อเลือกรูปภาพ</div>
+                            <div class="upload-hint">PNG, JPG ขนาดไม่เกิน 5MB (สูงสุด 5 รูป)</div>
+                        </div>
+
+                        
+                        <div id="imagePreviewContainer">
+                            
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- ราคาและสต็อก -->
+                
                 <div class="form-row">
                     <div class="col-half">
                         <div class="form-group">
@@ -114,13 +128,13 @@
                 <div class="form-group">
                     <label class="form-label">แท็กสินค้า (Product Tags)</label>
                     <div class="tags-input-container" id="tagsContainer">
-                        <!-- แท็กจะถูกเพิ่มตรงนี้ด้วย JS -->
+                        
                         <input type="text" class="tag-input" id="tagInput" placeholder="พิมพ์แท็กแล้วกด Enter...">
                     </div>
-                    <p class="helper-text">กด Enter หรือ Comma (,) เพื่อเพิ่มแท็ก</p>
+                    <p class="helper-text">กด Enter เพื่อเพิ่มแท็ก</p>
                 </div>
 
-                <!-- Buttons -->
+                
                 <div class="button-group">
                     <button type="button" class="btn btn-secondary">ยกเลิก</button>
                     <button type="submit" class="btn btn-primary">บันทึกสินค้า</button>
