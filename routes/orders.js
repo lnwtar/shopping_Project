@@ -1,5 +1,5 @@
 const express = require('express');
-const pool = require('../db'); // ถอยกลับไปหา db.js ที่หน้าบ้าน
+const pool = require('../db'); 
 const router = express.Router();
 
 // POST /orders/place
