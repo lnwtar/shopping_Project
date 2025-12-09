@@ -1,8 +1,8 @@
 const express = require('express');
-const pool = require('../db'); // เชื่อมต่อ Database
+const pool = require('../db'); // เชื่อมต่อ database
 const router = express.Router();
 
-// 1. ดึงข้อมูลตะกร้า (GET /cart/:userId)
+// 1. ดึงข้อมูลตะกร้า (GET)
 router.get('/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
@@ -24,18 +24,16 @@ router.get('/:userId', async (req, res) => {
         });
 
         res.json({ items: rows, total, count });
-
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: err.message });
     }
 });
 
-// 2. เพิ่มสินค้า (POST /cart/add)
+// 2. เพิ่มสินค้า (POST /add)
 router.post('/add', async (req, res) => {
     const { userId, productId, quantity, size, color } = req.body;
     try {
-        // A. หาตะกร้า
         const [carts] = await pool.query('SELECT id FROM carts WHERE user_id = ? AND status = "active"', [userId]);
         let cartId;
         if (carts.length === 0) {
@@ -45,7 +43,6 @@ router.post('/add', async (req, res) => {
             cartId = carts[0].id;
         }
 
-        // B. เช็คสินค้าซ้ำ
         const sqlCheck = `SELECT id, quantity FROM cart_items WHERE cart_id = ? AND product_id = ? AND size = ? AND color = ?`;
         const [items] = await pool.query(sqlCheck, [cartId, productId, size, color]);
 
@@ -53,20 +50,15 @@ router.post('/add', async (req, res) => {
             const newQty = items[0].quantity + (quantity || 1);
             await pool.query('UPDATE cart_items SET quantity = ? WHERE id = ?', [newQty, items[0].id]);
         } else {
-            // ดึงราคา
             const [product] = await pool.query('SELECT price FROM products WHERE id = ?', [productId]);
-            if (product.length === 0) return res.status(404).json({ error: 'Product not found' });
             const price = product[0].price;
-
             await pool.query(
                 `INSERT INTO cart_items (cart_id, product_id, quantity, unit_price, size, color) VALUES (?, ?, ?, ?, ?, ?)`,
                 [cartId, productId, quantity || 1, price, size, color]
             );
         }
-        res.json({ message: 'Added to cart' });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
+        res.json({ message: 'Added' });
+    } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 // 3. อัปเดตและลบ
