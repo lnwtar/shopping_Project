@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    
     <!-- Navigation Bar -->
     <header class="navbar">
         <a href="main.html" class="logo">HIENDBRANDS&trade;</a>
@@ -48,23 +49,28 @@
             </ul>
         </nav>
         <div class="nav-icons">
-            <a href="#" class="icon-link"  id="user-link">
+            <a href="../../login_register.htm" class="icon-link"  id="user-link">
                 <img src="pic/loupe.png" alt="Search">
             </a>
-            <a href="login_register.html" class="icon-link">
+            
+            <!-- <a href="login_register.html" class="icon-link">
                 <img src="pic/user.png" alt="User">
-            </a>
+            </a> -->
 
-            <a href="profile.html" class="icon-link">
+            <a href="profile.html" class="icon-link" id="icon-link">
                 <img src="pic/user.png" alt="User">
+                <span id="user-name-display" style="display:none; margin-left:5px; font-weight:bold;"></span>
             </a>
 
             <a href="cart.html" class="icon-link" id="cart-link">
                 <img src="pic/parcel.png" alt="Cart">
+            <span id="nav-cart-count" class="cart-badge" style="display:none;">0</span>
             </a>
+
             <div class="lang-selector">
                 TH <i class="fas fa-chevron-down"></i>
             </div>
+            </a>
         </div>
 
     </header>

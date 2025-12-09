@@ -1,6 +1,10 @@
+// URL ของ API
+const API_BASE = 'http://localhost:3000';
+// Path ไปหน้า Login (ใช้ / เพื่อเริ่มจากหน้าบ้านเสมอ)
+const LOGIN_PAGE_PATH = '/login_register.html'; 
+
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- ส่วนที่ 1: ระบบเลือกไซส์ ---
+    // ... (ส่วนจัดการปุ่มเลือกไซส์ เหมือนเดิม) ...
     const sizeBtns = document.querySelectorAll('.size-btn');
     sizeBtns.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -9,81 +13,90 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- ส่วนที่ 2: เมื่อกดปุ่ม Add to Bag ---
     const addToCartBtn = document.getElementById('add-to-cart-btn');
     
     if (addToCartBtn) {
         addToCartBtn.addEventListener('click', function() {
-            
-            // 1. ตรวจสอบไซส์
+            // 1. ตรวจสอบ Login
+            const userId = localStorage.getItem('user_id');
+            if (!userId) {
+                alert('กรุณาเข้าสู่ระบบก่อนเลือกซื้อสินค้า');
+                window.location.href = LOGIN_PAGE_PATH; 
+                return;
+            }
+
+            // 2. ตรวจสอบไซส์
             const selectedSizeBtn = document.querySelector('.size-btn.selected');
             let selectedSize = 'Free Size';
 
             if (sizeBtns.length > 0) {
                 if (!selectedSizeBtn) {
-                    alert('กรุณาเลือกไซส์ก่อน (Please select a size)');
+                    alert('กรุณาเลือกไซส์ก่อน');
                     return; 
                 }
                 selectedSize = selectedSizeBtn.innerText;
             }
 
-            // 2. ดึงข้อมูล
+            // 3. เตรียมข้อมูล
             const productData = {
-                id: this.dataset.id,           
-                name: this.dataset.name,       
-                price: parseInt(this.dataset.price), 
-                image: this.dataset.image,     
-                color: this.dataset.color || 'Standard',
-                size: selectedSize,            
-                qty: 1                         
+                userId: userId,
+                productId: this.dataset.id,    
+                quantity: 1,                   
+                size: selectedSize,
+                color: this.dataset.color || 'Standard'
             };
 
-            // 3. ส่งไปบันทึกและเปลี่ยนหน้า
-            addToLocalStorage(productData);
+            // 4. ส่งข้อมูล
+            addToCartAPI(productData, this.dataset.name);
         });
     }
+    
+    updateNavBadgeAPI();
 });
 
-// ฟังก์ชันช่วยบันทึกข้อมูล
-function addToLocalStorage(newItem) {
-    let cart = JSON.parse(localStorage.getItem('myCart')) || [];
+async function addToCartAPI(data, productName) {
+    try {
+        const response = await fetch(`${API_BASE}/cart/add`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
 
-    const existingIndex = cart.findIndex(item => item.id === newItem.id && item.size === newItem.size);
+        const result = await response.json();
 
-    if (existingIndex > -1) {
-        cart[existingIndex].qty += 1;
-    } else {
-        cart.push(newItem);
-    }
+        if (response.ok) {
+            if(confirm(`เพิ่ม "${productName}" ลงตะกร้าเรียบร้อย!\nต้องการไปที่ตะกร้าสินค้าเลยหรือไม่?`)) {
+                // [จุดสำคัญ] แก้ Path ให้เป็น Absolute Path (เริ่มด้วย /)
+                // เพราะ cart.html อยู่ติดกับ main.html ในโฟลเดอร์ public
+                window.location.href = '/cart.html'; 
+            } else {
+                updateNavBadgeAPI();
+            }
+        } else {
+            alert('เกิดข้อผิดพลาด: ' + (result.error || result.message));
+        }
 
-    localStorage.setItem('myCart', JSON.stringify(cart));
-    
-    // --- [จุดสำคัญที่แก้ไข] ถามเพื่อเปลี่ยนหน้า ---
-    // ใช้ confirm เพื่อถามผู้ใช้
-    if(confirm(`เพิ่ม "${newItem.name}" ลงตะกร้าเรียบร้อย!\nต้องการไปที่หน้าตะกร้าสินค้าเพื่อชำระเงินเลยหรือไม่?`)) {
-        
-        // สั่งเปลี่ยนหน้าไปยัง cart.html
-        // *** หมายเหตุ: ต้องแก้ Path ให้ตรงกับที่อยู่ไฟล์จริงของคุณ ***
-        // ถ้าหน้าสินค้าอยู่ลึก 2 ชั้น (เช่น pagethaitanium/thaishirt1/) และ cart อยู่ใน public/cart/
-        window.location.href = '../../cart.html'; 
-        
-    } else {
-        // ถ้ากด Cancel (เลือกซื้อต่อ) ก็แค่อัปเดตตัวเลข
-        updateNavBadge();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้');
     }
 }
 
-// ฟังก์ชันอัปเดตตัวเลขบน Navbar
-function updateNavBadge() {
-    const cart = JSON.parse(localStorage.getItem('myCart')) || [];
-    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-    
+async function updateNavBadgeAPI() {
+    const userId = localStorage.getItem('user_id');
     const badge = document.getElementById('nav-cart-count');
-    if (badge) {
-        badge.textContent = totalQty;
-        badge.style.display = totalQty > 0 ? 'block' : 'none';
+    
+    if (!userId || !badge) return;
+
+    try {
+        const response = await fetch(`${API_BASE}/cart/${userId}`);
+        if (response.ok) {
+            const data = await response.json();
+            const totalQty = data.count || 0;
+            badge.textContent = totalQty;
+            badge.style.display = totalQty > 0 ? 'block' : 'none';
+        }
+    } catch (error) {
+        console.error('Error fetching cart badge:', error);
     }
 }
-
-// เรียก update ทันทีที่โหลด
-updateNavBadge();

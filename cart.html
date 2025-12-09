@@ -1,47 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart — HIENDBRANDS™</title>
     
-    <link type="text/css" rel="stylesheet" href="Main.css" />
-    <link rel="stylesheet" href="Main.css">
+    <!-- Link CSS หลัก (ถอย 2 ชั้น) -->
+    <link type="text/css" rel="stylesheet" href="../../Main.css" />
+    <!-- Link CSS เฉพาะหน้า Cart (อยู่โฟลเดอร์เดียวกัน) -->
+    <link rel="stylesheet" href="cart.css">
+    <!-- Link CSS Modal (ถอย 1 ชั้นไปหา css) -->
+    <link rel="stylesheet" href="../css/login_modal.css">
     
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
 
+    <!-- Navbar -->
     <header class="navbar">
-        <a href="main.html" class="logo">HIENDBRANDS&trade;</a>
+        <!-- แก้ไข Link กลับหน้า Main (ถอย 2 ชั้น) -->
+        <a href="../../main.html" class="logo">HIENDBRANDS&trade;</a>
         
         <nav>
             <ul class="nav-links">
-                <li><a href="main.html" class="menu-link">NEW ARRIVAL</a></li>
+                <li><a href="../../main.html" class="menu-link">NEW ARRIVAL</a></li>
                 <li><a href="#" class="menu-link">COLLABORATION&reg;</a></li>
-                <li><a href="Runnigpage.html" class="menu-link">RUNNING</a></li>
+                <li><a href="#" class="menu-link">RUNNING</a></li>
                 <li><a href="#" class="menu-link">SHOP</a></li>
-                <li><a href="sale.html" class="menu-link">SALE</a></li>
+                <li><a href="#" class="menu-link">SALE</a></li>
             </ul>
         </nav>
 
         <div class="nav-icons">
-            <a href="#" class="icon-link"  id="user-link">
-                <img src="pic/loupe.png" alt="Search">
+            <a href="#" class="icon-link">
+                <img src="../../pic/loupe.png" alt="Search">
             </a>
-            <a href="login_register.html" class="icon-link" id="user-icon">
-                <img src="pic/user.png" alt="User">
+            
+            <!-- [จุดสำคัญที่แก้ 1] ใส่ ID ให้ตรงกับ global_session.js -->
+            <a href="../../login_register.html" class="icon-link" id="user-link">
+                <img src="../../pic/user.png" alt="User" id="user-icon">
+                <span id="user-name-display" style="display:none; margin-left:5px; font-weight:bold;"></span>
             </a>
-            <a href="cart.html" class="icon-link" id="cart-link">
-                <img src="pic/parcel.png" alt="Cart">
+            
+            <!-- [จุดสำคัญที่แก้ 2] ใส่ ID ให้ตะกร้าเพื่อแสดงตัวเลข -->
+            <a href="cart.html" class="icon-link relative" id="cart-link">
+                <img src="../../pic/parcel.png" alt="Cart">
+                <span id="nav-cart-count" class="cart-badge" style="position:absolute; top:-5px; right:-5px; background:red; color:white; font-size:10px; border-radius:50%; padding:2px 5px; display:none;">0</span>
             </a>
+            
             <div class="lang-selector">
                 TH <i class="fas fa-chevron-down"></i>
             </div>
-        </div>  
+        </div>
     </header>
 
     <div class="cart-wrapper">
@@ -51,12 +62,10 @@
         </div>
 
         <div class="cart-container">
-            <!-- พื้นที่สำหรับแสดงรายการสินค้า (ว่างไว้ก่อน เดี๋ยว JS มาเติม) -->
-            <div class="cart-items" id="cart-items-container">
-                <!-- เนื้อหาจะถูกสร้างโดย cart.js -->
-            </div>
+            <!-- พื้นที่แสดงสินค้า -->
+            <div class="cart-items" id="cart-items-container"></div>
 
-            <!-- ส่วนสรุปยอดเงิน -->
+            <!-- สรุปยอดเงิน -->
             <div class="order-summary">
                 <h2 class="summary-title">Order Summary</h2>
                 <div class="summary-row">
@@ -67,16 +76,20 @@
                     <span>Total</span>
                     <span id="grand-total">฿0.00</span>
                 </div>
-                <button 
-                    class="checkout-btn" 
-                    onclick="window.location.href = 'checkout.html'">
+                
+                <!-- ปุ่มไป Checkout -->
+                <button class="checkout-btn" onclick="window.location.href='checkout.html'">
                     Proceed to Checkout
                 </button>
-                <a href="main.html" class="continue-shopping">Continue Shopping</a>
+                
+                <a href="../../main.html" class="continue-shopping">Continue Shopping</a>
             </div>
         </div>
     </div>
-<script src="../../global_session.js"></script>
-<script src="../../cart.js"></script> 
+
+    <script src="cart.js"></script> 
+    <script src="../../global_session.js"></script>
+    <script src="../../popup-login.js"></script>
+
 </body>
 </html>
