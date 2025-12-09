@@ -63,85 +63,71 @@
     <!-------------------------------------------------------------------------------------------------------------------------------------->
 
         
-    <div class="main-container">
-        
-        <main class="content-area">
-            <h1>รายละเอียดสินค้า</h1>
-            <p class="subtitle">กรอกข้อมูลสินค้าของคุณให้ครบถ้วนเพื่อแสดงบนหน้าร้านค้า</p>
-
-            <form>
-                <!-- ชื่อสินค้า -->
+     <div id="uploadView">
+        <div class="upload-container">
+            <h1>อัปโหลดสินค้าใหม่</h1>
+            <p class="subtitle">กรอกรายละเอียดสินค้าของคุณ</p>
+            <form id="productForm">
                 <div class="form-group">
-                    <label class="form-label" for="productName">ชื่อสินค้า</label>
-                    <input type="text" id="productName" class="form-input" placeholder="เช่น เสื้อยืดคอกลม สีดำ รุ่น Limited">
+                    <label class="form-label">ชื่อสินค้า</label>
+                    <input type="text" id="productName" class="form-input" placeholder="เช่น CARNIVAL X TOP SECRET S15 CREWNECK" required>
                 </div>
-
-                <!-- รายละเอียด -->
-                <div class="form-group">
-                    <label class="form-label" for="productDesc">คำอธิบายสินค้า</label>
-                    <textarea id="productDesc" class="form-textarea" placeholder="บอกเล่าเกี่ยวกับสินค้าของคุณ..."></textarea>
-                </div>
-
-                <!-- รูปภาพ (แก้ไขให้รองรับหลายรูป) -->
-                <div class="form-group">
-                    <label class="form-label">รูปภาพสินค้า (สูงสุด 5 รูป)</label>
-                    
-                    <!-- Hidden File Input (เพิ่ม attribute multiple) -->
-                    <input type="file" id="imageInput" accept="image/*" multiple hidden>
-
-                    <div class="image-upload-area" id="uploadArea">
-                        
-                        <!-- Default State: Upload Prompt -->
-                        <div id="uploadPlaceholder">
-                            <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                            <div class="upload-text">คลิกเพื่อเลือกรูปภาพ</div>
-                            <div class="upload-hint">PNG, JPG ขนาดไม่เกิน 5MB (สูงสุด 5 รูป)</div>
-                        </div>
-
-                        
-                        <div id="imagePreviewContainer">
-                            
-                        </div>
-
-                    </div>
-                </div>
-
-                
                 <div class="form-row">
                     <div class="col-half">
                         <div class="form-group">
-                            <label class="form-label" for="price">ราคา (บาท)</label>
-                            <input type="number" id="price" class="form-input" placeholder="0.00">
-                        </div>
-                    </div>
-                    <div class="col-half">
-                        <div class="form-group">
-                            <label class="form-label" for="stock">จำนวนสินค้า (ชิ้น)</label>
-                            <input type="number" id="stock" class="form-input" placeholder="0">
+                            <label class="form-label">ราคา (THB)</label>
+                            <input type="number" id="productPrice" class="form-input" placeholder="2590" required>
                         </div>
                     </div>
                 </div>
-
-                
                 <div class="form-group">
-                    <label class="form-label">แท็กสินค้า (Product Tags)</label>
+                    <label class="form-label">คำอธิบายสินค้า</label>
+                    <textarea id="productDesc" class="form-textarea" placeholder='"Built not bought."' required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tags</label>
                     <div class="tags-input-container" id="tagsContainer">
-                        
-                        <input type="text" class="tag-input" id="tagInput" placeholder="พิมพ์แท็กแล้วกด Enter...">
+                        <input type="text" class="tag-input" id="tagInput" placeholder="พิมพ์แล้วกด Enter">
                     </div>
-                    <p class="helper-text">กด Enter เพื่อเพิ่มแท็ก</p>
                 </div>
-
-                
-                <div class="button-group">
-                    <button type="button" class="btn btn-secondary">ยกเลิก</button>
-                    <button type="submit" class="btn btn-primary">บันทึกสินค้า</button>
+                <div class="form-group">
+                    <label class="form-label">รูปภาพ (สูงสุด 5 รูป)</label>
+                    <input type="file" id="imageInput" accept="image/*" multiple hidden>
+                    <div class="image-upload-area" id="uploadArea">
+                        <div id="uploadPlaceholder">
+                            <div style="font-size: 30px; margin-bottom: 10px;">📷</div>
+                            <div>คลิกเพื่อเลือกรูปภาพ</div>
+                        </div>
+                        <div id="imagePreviewContainer"></div>
+                    </div>
                 </div>
+                <button type="submit" class="btn-primary">บันทึกและโพสต์</button>
             </form>
+        </div>
+    </div>
 
-        </main>
+    <div id="productView">
+        <div class="product-page-container">
+            <div style="grid-column: 1 / -1;">
+                <span class="back-nav" onclick="showMainView()">← Back to Home</span>
+            </div>
+            
+            <div class="product-gallery-main">
+                <img src="" id="displayImage" class="main-display-img" alt="Product Image">
+            </div>
+
+            <div class="product-details">
+                <h1 id="displayTitle" class="pd-title">PRODUCT TITLE</h1>
+                <div class="pd-price" id="displayPrice">B0 THB</div>
+                <div class="pd-tax">Taxes and duties included</div>
+                <div class="pd-features" id="displayTags"></div>
+                
+                <button class="add-bag-btn">ADD TO BAG</button>
+                
+                <div class="pd-quote" id="displayQuote"></div>
+                <div class="pd-desc-text" id="displayFullDesc"></div>
+            </div>
+        </div>
     </div>
     
     <script src="saller.js"></script>
