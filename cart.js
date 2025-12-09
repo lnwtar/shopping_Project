@@ -1,23 +1,20 @@
+// URL ของ API (Node.js)
+const API_BASE = 'http://localhost:3000';
+
 document.addEventListener('DOMContentLoaded', () => {
-    loadCartItems();
-});
-
-// ฟังก์ชันโหลดข้อมูลจาก LocalStorage มาแสดงผล
-function loadCartItems() {
+    // 1. ตรวจสอบว่าล็อกอินหรือยัง?
+    const userId = localStorage.getItem('user_id');
     const container = document.getElementById('cart-items-container');
-    
-    // 1. ดึงข้อมูลจากกล่องที่ชื่อ 'myCart' (ต้องชื่อเดียวกับใน product_handler.js)
-    const cart = JSON.parse(localStorage.getItem('myCart')) || [];
 
-    // 2. ถ้าตะกร้าว่าง
-    if (cart.length === 0) {
+    if (!userId) {
+        // ถ้ายังไม่ล็อกอิน ให้แสดงข้อความแจ้งเตือน
         if(container) {
             container.innerHTML = `
                 <div style="text-align:center; padding:50px; color:#666;">
-                    <i class="fas fa-shopping-basket" style="font-size:48px; margin-bottom:20px;"></i>
-                    <h3>ตะกร้าสินค้าว่างเปล่า</h3>
-                    <p>ยังไม่มีสินค้าในตะกร้าของคุณ</p>
-                    <a href="../../main.html" style="text-decoration:underline; font-weight:bold;">กลับไปเลือกซื้อสินค้า</a>
+                    <i class="fas fa-user-lock" style="font-size:48px; margin-bottom:20px;"></i>
+                    <h3>กรุณาเข้าสู่ระบบ</h3>
+                    <p>เพื่อดูสินค้าในตะกร้าของคุณ</p>
+                    <a href="../../login_register.html" style="color:black; text-decoration:underline; font-weight:bold;">ไปหน้าเข้าสู่ระบบ</a>
                 </div>`;
         }
         updateTotals(0);
@@ -25,96 +22,168 @@ function loadCartItems() {
         return;
     }
 
-    // 3. ถ้ามีสินค้า ให้สร้าง HTML
-    if(container) {
-        container.innerHTML = ''; // เคลียร์ของเก่า
+    // 2. ถ้าล็อกอินแล้ว ให้ดึงข้อมูลจาก Server (MySQL)
+    loadCartFromAPI(userId);
+});
+
+// --- ฟังก์ชันดึงข้อมูลตะกร้าจาก API ---
+async function loadCartFromAPI(userId) {
+    const container = document.getElementById('cart-items-container');
+    
+    // แสดง Loading State
+    if(container) container.innerHTML = `<p style="text-align:center; padding:30px;"><i class="fas fa-spinner fa-spin"></i> กำลังโหลดตะกร้า...</p>`;
+
+    try {
+        // ยิง GET Request ไปที่ /cart/:userId
+        const response = await fetch(`${API_BASE}/cart/${userId}`);
         
-        cart.forEach((product, index) => {
-            const html = `
-            <div class="cart-item">
-                <img src="${product.image}" onerror="this.src='https://via.placeholder.com/150'" class="item-image">
-                <div class="item-details">
-                    <h3 class="item-name">${product.name}</h3>
-                    <p class="item-meta">
-                        Size: <strong>${product.size}</strong> | Color: ${product.color}
-                    </p>
-                    <p class="item-price">฿${product.price.toLocaleString()}</p>
+        if (!response.ok) throw new Error(`Server Error: ${response.status}`);
+
+        const data = await response.json();
+
+        // เช็คว่ามีรายการสินค้าไหม
+        if (data.items && data.items.length > 0) {
+            renderCartItems(data.items); // แสดงรายการสินค้า
+            updateTotals(data.total);    // แสดงยอดเงินรวม
+            updateHeaderCount(data.count); // แสดงจำนวนชิ้น
+        } else {
+            showEmptyCart(); // แสดงตะกร้าว่าง
+        }
+
+    } catch (error) {
+        console.error('Error loading cart:', error);
+        if(container) container.innerHTML = `<p style="color:red; text-align:center; padding:30px;">
+            <i class="fas fa-times-circle"></i> ไม่สามารถเชื่อมต่อกับ Server ได้<br>
+            <small>โปรดตรวจสอบ Node.js Server และ Route /cart</small>
+        </p>`;
+    }
+}
+
+// --- ฟังก์ชันแสดงผล HTML ---
+function renderCartItems(items) {
+    const container = document.getElementById('cart-items-container');
+    if (!container) return;
+    
+    container.innerHTML = ''; // ล้างของเก่า
+
+    items.forEach((item) => {
+        // สร้าง HTML สำหรับแต่ละสินค้า
+        // หมายเหตุ: ชื่อตัวแปร item.xxx ต้องตรงกับที่ Backend ส่งมา (ดูใน routes/cart.js)
+        
+        // แก้ไข path รูปภาพให้ถูกต้อง (ถ้าไม่ได้เป็น URL เต็ม ให้เติม ../../)
+        let imageSrc = item.image;
+        if (imageSrc && !imageSrc.startsWith('http') && !imageSrc.startsWith('../')) {
+             // สมมติรูปเก็บใน public/ ดังนั้นถอย 2 ชั้นจาก public/cart/
+             imageSrc = '../../' + imageSrc; 
+        }
+
+        const html = `
+        <div class="cart-item">
+            <img src="${imageSrc || 'https://via.placeholder.com/150'}" 
+                 class="item-image" 
+                 onerror="this.src='https://via.placeholder.com/150'">
+            
+            <div class="item-details">
+                <h3 class="item-name">${item.product_name}</h3>
+                <p class="item-meta">
+                    Size: <strong>${item.size || '-'}</strong> | Color: ${item.color || '-'}
+                </p>
+                <p class="item-price">฿${parseFloat(item.price).toLocaleString()}</p>
+                
+                <div class="quantity-control">
+                    <!-- ปุ่มลบจำนวน -->
+                    <button class="qty-btn" onclick="updateQtyAPI(${item.item_id}, ${item.quantity - 1})">-</button>
                     
-                    <div class="quantity-control">
-                        <button class="qty-btn" onclick="updateCartQty(${index}, -1)">-</button>
-                        <input type="text" value="${product.qty}" class="qty-input" readonly>
-                        <button class="qty-btn" onclick="updateCartQty(${index}, 1)">+</button>
-                    </div>
+                    <input type="text" value="${item.quantity}" class="qty-input" readonly>
+                    
+                    <!-- ปุ่มเพิ่มจำนวน -->
+                    <button class="qty-btn" onclick="updateQtyAPI(${item.item_id}, ${item.quantity + 1})">+</button>
                 </div>
-                <button class="remove-btn" onclick="removeCartItem(${index})">
-                    <i class="fas fa-times"></i>
-                </button>
             </div>
-            `;
-            container.innerHTML += html;
-        });
-    }
-
-    // 4. คำนวณยอดเงินรวม
-    calculateTotal(cart);
-}
-
-// ฟังก์ชันเพิ่ม/ลดจำนวน
-window.updateCartQty = function(index, change) {
-    let cart = JSON.parse(localStorage.getItem('myCart')) || [];
-    
-    // เปลี่ยนจำนวน
-    cart[index].qty += change;
-    
-    // ห้ามต่ำกว่า 1
-    if (cart[index].qty < 1) cart[index].qty = 1;
-    
-    // บันทึกทับลงเครื่อง
-    localStorage.setItem('myCart', JSON.stringify(cart));
-    
-    // โหลดหน้าจอใหม่เพื่อให้ตัวเลขเปลี่ยน
-    loadCartItems();
-};
-
-// ฟังก์ชันลบสินค้า
-window.removeCartItem = function(index) {
-    if(confirm('ต้องการลบสินค้านี้ออกจากตะกร้า?')) {
-        let cart = JSON.parse(localStorage.getItem('myCart')) || [];
-        cart.splice(index, 1); // ลบตัวที่ index นั้น
-        localStorage.setItem('myCart', JSON.stringify(cart));
-        loadCartItems();
-    }
-};
-
-// ฟังก์ชันคำนวณเงิน
-function calculateTotal(cart) {
-    let total = 0;
-    let itemCount = 0;
-
-    cart.forEach(item => {
-        total += item.price * item.qty;
-        itemCount += item.qty;
+            
+            <!-- ปุ่มลบสินค้า -->
+            <button class="remove-btn" onclick="removeItemAPI(${item.item_id})">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        `;
+        container.innerHTML += html;
     });
-
-    updateTotals(total);
-    updateHeaderCount(itemCount);
 }
 
-// อัปเดตตัวเลขราคา
+// --- ฟังก์ชันอัปเดตจำนวน (ยิงไปหา Server) ---
+window.updateQtyAPI = async function(itemId, newQty) {
+    if (newQty < 1) return; // ห้ามต่ำกว่า 1
+
+    try {
+        await fetch(`${API_BASE}/cart/update`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ itemId: itemId, quantity: newQty })
+        });
+        
+        // โหลดข้อมูลใหม่หลังจากอัปเดต
+        const userId = localStorage.getItem('user_id');
+        loadCartFromAPI(userId);
+
+    } catch (error) {
+        console.error('Update error:', error);
+    }
+};
+
+// --- ฟังก์ชันลบสินค้า (ยิงไปหา Server) ---
+window.removeItemAPI = async function(itemId) {
+    if(!confirm('ต้องการลบสินค้านี้ใช่ไหม?')) return;
+
+    try {
+        await fetch(`${API_BASE}/cart/remove`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ itemId: itemId })
+        });
+
+        // โหลดข้อมูลใหม่
+        const userId = localStorage.getItem('user_id');
+        loadCartFromAPI(userId);
+
+    } catch (error) {
+        console.error('Remove error:', error);
+    }
+};
+
+// --- ฟังก์ชันแสดงหน้าตะกร้าว่าง ---
+function showEmptyCart() {
+    const container = document.getElementById('cart-items-container');
+    if (container) {
+        container.innerHTML = `
+            <div style="text-align:center; padding:50px; color:#666;">
+                <i class="fas fa-shopping-basket" style="font-size:48px; margin-bottom:20px;"></i>
+                <h3>ตะกร้าสินค้าว่างเปล่า</h3>
+                <p>ยังไม่มีสินค้าในตะกร้าของคุณ</p>
+                <a href="../../main.html" style="text-decoration:underline; font-weight:bold;">กลับไปเลือกซื้อสินค้า</a>
+            </div>`;
+    }
+    updateTotals(0);
+    updateHeaderCount(0);
+}
+
+// --- ฟังก์ชันอัปเดตตัวเลขราคา (UI) ---
 function updateTotals(total) {
-    const formatted = '฿' + total.toLocaleString('en-US', {minimumFractionDigits: 2});
+    const formattedTotal = '฿' + parseFloat(total).toLocaleString('en-US', {minimumFractionDigits: 2});
+    
     const subtotalEl = document.getElementById('subtotal');
     const grandTotalEl = document.getElementById('grand-total');
-    
-    if(subtotalEl) subtotalEl.innerText = formatted;
-    if(grandTotalEl) grandTotalEl.innerText = formatted;
+
+    if(subtotalEl) subtotalEl.innerText = formattedTotal;
+    if(grandTotalEl) grandTotalEl.innerText = formattedTotal;
 }
 
-// อัปเดตจำนวนสินค้าตรงหัวข้อ และ Navbar
+// --- ฟังก์ชันอัปเดตจำนวนสินค้า (UI) ---
 function updateHeaderCount(count) {
     const headerCount = document.getElementById('header-cart-count');
     if(headerCount) headerCount.innerText = count + " ITEMS";
     
+    // อัปเดตจุดแดงที่ Navbar ด้วย (ถ้ามี)
     const navBadge = document.getElementById('nav-cart-count');
     if(navBadge) {
         navBadge.innerText = count;
