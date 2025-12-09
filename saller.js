@@ -1,3 +1,4 @@
+// --- 1. Tag System Logic ---
 const tagsContainer = document.getElementById('tagsContainer');
 const tagInput = document.getElementById('tagInput');
 let tags = [];
@@ -71,9 +72,9 @@ function renderImages() {
         const wrapper = document.createElement('div');
         wrapper.className = 'img-wrapper';
         wrapper.innerHTML = `
-                    <img src="${imgSrc}" class="preview-img">
-                    <button type="button" class="remove-img-btn" onclick="removeImage(${index})">&times;</button>
-                `;
+            <img src="${imgSrc}" class="preview-img">
+            <button type="button" class="remove-img-btn" onclick="removeImage(${index})">&times;</button>
+        `;
         previewArea.appendChild(wrapper);
     });
 
@@ -112,6 +113,6 @@ document.getElementById('uploadForm').addEventListener('submit', function (e) {
     };
 
     console.log("Product Data Ready:", productData);
-    alert("Product information ready! (See Console)");
-    // ตรงนี้คุณสามารถเพิ่มโค้ดเพื่อส่งข้อมูลไปยัง Backend หรือหน้าถัดไปได้ครับ
+    alert("Product information ready! Check console for data object.");
+    // ส่งข้อมูลนี้ไปที่ Backend หรือบันทึกได้เลยครับ
 });
