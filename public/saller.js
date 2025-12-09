@@ -1,20 +1,8 @@
-let tags = [];
-let uploadedImages = [];
-const MAX_IMAGES = 5;
-
-// --- 1. Routing ---
-function showPage(pageId) {
-    document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-    document.getElementById(pageId + '-page').classList.add('active');
-    window.scrollTo(0, 0);
-}
-
-// --- 2. Tag System Logic ---
 const tagsContainer = document.getElementById('tagsContainer');
 const tagInput = document.getElementById('tagInput');
+let tags = [];
 
 function renderTags() {
-    // Clear existing tags (except input)
     const oldTags = tagsContainer.querySelectorAll('.tag');
     oldTags.forEach(t => t.remove());
 
@@ -47,18 +35,20 @@ tagInput.addEventListener('keydown', function (e) {
     }
 });
 
-// --- 3. Multi-Image Upload Logic ---
+// --- 2. Multi-Image Upload Logic ---
 const imageInput = document.getElementById('pImage');
 const previewArea = document.getElementById('previewArea');
 const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+let uploadedImages = [];
+const MAX_IMAGES = 5;
 
 imageInput.addEventListener('change', function () {
     const files = Array.from(this.files);
     const remainingSlots = MAX_IMAGES - uploadedImages.length;
     const filesToProcess = files.slice(0, remainingSlots);
 
-    if (filesToProcess.length === 0) {
-        if (uploadedImages.length >= MAX_IMAGES) alert("Maximum 5 images allowed.");
+    if (filesToProcess.length === 0 && uploadedImages.length >= MAX_IMAGES) {
+        alert("Maximum 5 images allowed.");
         return;
     }
 
@@ -82,12 +72,12 @@ function renderImages() {
         wrapper.className = 'img-wrapper';
         wrapper.innerHTML = `
                     <img src="${imgSrc}" class="preview-img">
-                    <button class="remove-img-btn" onclick="removeImage(${index})">&times;</button>
+                    <button type="button" class="remove-img-btn" onclick="removeImage(${index})">&times;</button>
                 `;
         previewArea.appendChild(wrapper);
     });
 
-    // Handle Placeholder & Add More Button
+    // Toggle Placeholder & Add More Button
     if (uploadedImages.length > 0) {
         uploadPlaceholder.style.display = 'none';
 
@@ -109,7 +99,7 @@ function removeImage(index) {
     renderImages();
 }
 
-// --- 4. Submit & Display Logic ---
+// --- 3. Handle Submit (ตัวอย่างการเก็บค่า) ---
 document.getElementById('uploadForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -117,50 +107,11 @@ document.getElementById('uploadForm').addEventListener('submit', function (e) {
         name: document.getElementById('pName').value,
         price: document.getElementById('pPrice').value,
         desc: document.getElementById('pDesc').value,
-        tags: [...tags], // Copy array
-        images: uploadedImages.length > 0 ? uploadedImages : ['https://via.placeholder.com/600x600?text=No+Image']
+        tags: [...tags],
+        images: uploadedImages
     };
 
-    localStorage.setItem('newProduct', JSON.stringify(productData));
-    loadProductData();
-    showPage('product');
+    console.log("Product Data Ready:", productData);
+    alert("Product information ready! (See Console)");
+    // ตรงนี้คุณสามารถเพิ่มโค้ดเพื่อส่งข้อมูลไปยัง Backend หรือหน้าถัดไปได้ครับ
 });
-
-function loadProductData() {
-    const storedData = localStorage.getItem('newProduct');
-    if (storedData) {
-        const product = JSON.parse(storedData);
-
-        document.getElementById('displayTitle').innerText = product.name;
-        document.getElementById('displayPrice').innerText = Number(product.price).toLocaleString() + ' THB';
-        document.getElementById('displayDesc').innerText = product.desc;
-
-        // Images
-        const images = product.images;
-        document.getElementById('displayImg').src = images[0]; // Set Main Image
-
-        // Thumbnails
-        const thumbRow = document.getElementById('thumbRow');
-        thumbRow.innerHTML = '';
-        if (images.length > 1) {
-            images.forEach((img, idx) => {
-                const thumb = document.createElement('img');
-                thumb.src = img;
-                thumb.className = `thumb-img ${idx === 0 ? 'active' : ''}`;
-                thumb.onclick = function () {
-                    document.getElementById('displayImg').src = img;
-                    document.querySelectorAll('.thumb-img').forEach(el => el.classList.remove('active'));
-                    this.classList.add('active');
-                };
-                thumbRow.appendChild(thumb);
-            });
-        }
-
-        // Tags
-        const tagsCont = document.getElementById('displayTags');
-        tagsCont.innerHTML = '';
-        product.tags.forEach(tag => {
-            tagsCont.innerHTML += `<span>${tag}</span>`;
-        });
-    }
-}

@@ -41,7 +41,7 @@
                 <li><a href="https://maps.app.goo.gl/w9taHNmVNb9xgCdX6" class="menu-link">SHOP</a></li>
                 
                 <li><a href="sale.html" class="menu-link">SALE</a></li>
-                <li><a href="#" class="menu-link">SALER</a></li>
+                <li><a href="saller.html" class="menu-link">SELLER</a></li>
             </ul>
         </nav>
 
@@ -63,72 +63,56 @@
     <!-------------------------------------------------------------------------------------------------------------------------------------->
 
         
-     <div id="uploadView">
-        <div class="upload-container">
-            <h1>อัปโหลดสินค้าใหม่</h1>
-            <p class="subtitle">กรอกรายละเอียดสินค้าของคุณ</p>
-            <form id="productForm">
-                <div class="form-group">
-                    <label class="form-label">ชื่อสินค้า</label>
-                    <input type="text" id="productName" class="form-input" placeholder="เช่น CARNIVAL X TOP SECRET S15 CREWNECK" required>
-                </div>
-                <div class="form-row">
-                    <div class="col-half">
-                        <div class="form-group">
-                            <label class="form-label">ราคา (THB)</label>
-                            <input type="number" id="productPrice" class="form-input" placeholder="2590" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">คำอธิบายสินค้า</label>
-                    <textarea id="productDesc" class="form-textarea" placeholder='"Built not bought."' required></textarea>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Tags</label>
-                    <div class="tags-input-container" id="tagsContainer">
-                        <input type="text" class="tag-input" id="tagInput" placeholder="พิมพ์แล้วกด Enter">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">รูปภาพ (สูงสุด 5 รูป)</label>
-                    <input type="file" id="imageInput" accept="image/*" multiple hidden>
-                    <div class="image-upload-area" id="uploadArea">
-                        <div id="uploadPlaceholder">
-                            <div style="font-size: 30px; margin-bottom: 10px;">📷</div>
-                            <div>คลิกเพื่อเลือกรูปภาพ</div>
-                        </div>
-                        <div id="imagePreviewContainer"></div>
-                    </div>
-                </div>
-                <button type="submit" class="btn-primary">บันทึกและโพสต์</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="productView">
-        <div class="product-page-container">
-            <div style="grid-column: 1 / -1;">
-                <span class="back-nav" onclick="showMainView()">← Back to Home</span>
+    <div class="seller-wrapper">
+        <div class="seller-container">
+            <div class="seller-header">
+                <h2>SELLER CENTER</h2>
+                <p>Add Product Information</p>
             </div>
             
-            <div class="product-gallery-main">
-                <img src="" id="displayImage" class="main-display-img" alt="Product Image">
-            </div>
+            <form id="uploadForm">
+                <div class="form-group">
+                    <label class="form-label">Product Name</label>
+                    <input type="text" id="pName" class="form-input" placeholder="Ex: CARNIVAL X ONE PIECE T-SHIRT" required>
+                </div>
 
-            <div class="product-details">
-                <h1 id="displayTitle" class="pd-title">PRODUCT TITLE</h1>
-                <div class="pd-price" id="displayPrice">B0 THB</div>
-                <div class="pd-tax">Taxes and duties included</div>
-                <div class="pd-features" id="displayTags"></div>
-                
-                <button class="add-bag-btn">ADD TO BAG</button>
-                
-                <div class="pd-quote" id="displayQuote"></div>
-                <div class="pd-desc-text" id="displayFullDesc"></div>
-            </div>
+                <div class="form-group">
+                    <label class="form-label">Price (THB)</label>
+                    <input type="number" id="pPrice" class="form-input" placeholder="Ex: 1290" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea id="pDesc" class="form-textarea" placeholder="Product details, size, material..." required></textarea>
+                </div>
+
+                <!-- TAGS SYSTEM -->
+                <div class="form-group">
+                    <label class="form-label">Tags (Type and press Enter)</label>
+                    <div class="tags-input-container" id="tagsContainer">
+                        <input type="text" class="tag-input" id="tagInput" placeholder="Add a tag...">
+                    </div>
+                </div>
+
+                <!-- IMAGE UPLOAD (Max 5) -->
+                <div class="form-group">
+                    <label class="form-label">Product Images (Max 5)</label>
+                    <input type="file" id="pImage" accept="image/*" multiple hidden>
+                    
+                    <!-- Upload Box -->
+                    <div class="image-upload-box" id="uploadPlaceholder" onclick="document.getElementById('pImage').click()">
+                        <i class="fas fa-cloud-upload-alt" style="font-size: 36px; margin-bottom: 12px; color: #444;"></i>
+                        <p style="font-weight: 600;">Click to Upload Images</p>
+                        <p style="font-size: 12px; color: #888; margin-top: 5px;">(Supported: JPG, PNG)</p>
+                    </div>
+
+                    <!-- Gallery Preview Area -->
+                    <div id="previewArea"></div>
+                </div>
+
+                <button type="submit" class="btn-submit">POST PRODUCT</button>
+            </form>
         </div>
-    </div>
     
     <script src="saller.js"></script>
 
