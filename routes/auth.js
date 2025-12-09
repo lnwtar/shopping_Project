@@ -26,5 +26,39 @@ router.post('/register', async (req, res) => {
   res.json({ message: 'สมัครสมาชิกสำเร็จ' });
 });
 
+// ... (code เดิมส่วน login/register) ...
+
+// [เพิ่มใหม่] POST /auth/update-profile
+router.post('/update-profile', async (req, res) => {
+    const { userId, username, avatar } = req.body;
+
+    if (!userId || !username) {
+        return res.status(400).json({ error: 'ข้อมูลไม่ครบถ้วน' });
+    }
+
+    try {
+        // อัปเดตข้อมูลลง SQL
+        await pool.query(
+            'UPDATE users SET username = ?, avatar = ? WHERE id = ?', 
+            [username, avatar, userId]
+        );
+
+        // ดึงข้อมูลล่าสุดของผู้ใช้กลับมาเพื่อส่งให้ Frontend อัปเดต Session
+        const [updatedUser] = await pool.query(
+            'SELECT id, username, email, is_seller, avatar FROM users WHERE id = ?', 
+            [userId]
+        );
+
+        res.json({ 
+            message: 'อัปเดตข้อมูลสำเร็จ', 
+            user: updatedUser[0] // ส่งข้อมูลใหม่กลับไป
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'อัปเดตไม่สำเร็จ (ชื่อผู้ใช้อาจซ้ำ)' });
+    }
+});
+
 module.exports = router;
 

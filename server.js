@@ -1,19 +1,32 @@
 const express = require('express');
+const pool = require('./db');
 const path = require('path');
+const cors = require('cors'); 
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
-app.use(express.static('public')); // เสิร์ฟไฟล์ static เช่น CSS, รูปภาพ
+// 1. Middleware (สำคัญมาก)
+app.use(cors()); 
+app.use(express.json()); 
+app.use(express.static('public')); 
+app.use('/public', express.static('public')); 
 
-// เมื่อเข้า http://localhost:3000/ ให้ส่ง main.html
+// 2. Import Routes
+const authRoutes = require('./routes/auth');
+// [จุดสำคัญ] ต้องมีไฟล์นี้ใน routes/ และ import เข้ามา
+const cartRoutes = require('./routes/cart');   
+const orderRoutes = require('./routes/orders'); 
+
+// 3. ใช้งาน Routes
+app.use('/auth', authRoutes);   
+app.use('/cart', cartRoutes);   
+app.use('/orders', orderRoutes); 
+
+// 4. Route หน้าแรก
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'main.html'));
+    res.sendFile(path.join(__dirname, 'public', 'main.html'));
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`Server is running at http://localhost:${PORT}`);
 });
-// routes
-const authRoutes = require('./routes/auth');
-app.use('/auth', authRoutes);

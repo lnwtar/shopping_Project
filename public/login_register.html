@@ -24,7 +24,7 @@
     
     <!-- ส่วนหัว (Header) -->
     <header class="card-header">
-      <h1 class="title">HIENDBRANDS</h1>
+      <h1 class="title"><a href="main.html" class="logo">HIENDBRANDS&trade;</a></h1>
       
     </header>
 
@@ -36,51 +36,53 @@
         <div id="toggle-bg" class="toggle-bg"></div>
         <button id="btn-login" onclick="switchTab('login')" class="toggle-btn active">เข้าสู่ระบบ</button>
         <button id="btn-register" onclick="switchTab('register')" class="toggle-btn">สมัครสมาชิก</button>
-      </div>
+        </div>
 
       <!-- ฟอร์ม Login/Register -->
       <section class="form-container">
         
         <!-- ฟอร์ม Login -->
        <form id="login-form" class="form active-form" onsubmit="handleLogin(event)">
-  <label for="login-email">อีเมล</label>
-  <input id="login-email" type="email" placeholder="email@noir.com" required>
-  
-  <label for="login-password">รหัสผ่าน</label>
-  <input id="login-password" type="password" placeholder="••••••••" required>
-  
-  <button type="submit" class="btn-black">เข้าสู่ระบบ</button>
-</form>
+        <label for="login-email">อีเมล</label>
+        <input id="login-email" type="email" placeholder="email@noir.com" required>
+        
+        <label for="login-password">รหัสผ่าน</label>
+        <input id="login-password" type="password" placeholder="••••••••" required>
+        
+        <button type="submit" class="btn-black">เข้าสู่ระบบ</button>
+        
+      </form>
 
         <!-- ฟอร์ม Register -->
         <form id="register-form" class="form hidden-form" onsubmit="handleRegister(event)">
-  <label for="reg-username">ชื่อผู้ใช้</label>
-  <input id="reg-username" type="text" placeholder="ชื่อผู้ใช้" required>
+          <label for="reg-username">ชื่อผู้ใช้</label>
+          <input id="reg-username" type="text" placeholder="ชื่อผู้ใช้" required>
 
-  <label for="reg-email">อีเมล</label>
-  <input id="reg-email" type="email" placeholder="อีเมลของคุณ" required>
+          <label for="reg-email">อีเมล</label>
+          <input id="reg-email" type="email" placeholder="อีเมลของคุณ" required>
 
-  <label for="reg-pass">รหัสผ่าน</label>
-  <input id="reg-pass" type="password" placeholder="รหัสผ่าน" required>
+          <label for="reg-pass">รหัสผ่าน</label>
+          <input id="reg-pass" type="password" placeholder="รหัสผ่าน" required>
 
-  <label for="reg-confirm-pass">ยืนยันรหัสผ่าน</label>
-  <input id="reg-confirm-pass" type="password" placeholder="ยืนยันรหัสผ่าน" required>
+          <label for="reg-confirm-pass">ยืนยันรหัสผ่าน</label>
+          <input id="reg-confirm-pass" type="password" placeholder="ยืนยันรหัสผ่าน" required>
 
-  <button type="submit" class="btn-white">สมัครสมาชิก</button>
-</form>
+          <button type="submit" class="btn-white">สมัครสมาชิก</button>
+        </form>
 
       </section>
     </main>
   </div>
 
-  <!-- Toast แจ้งเตือน -->
+
   <div id="toast" class="toast hidden">
     <h4 id="toast-title">Success</h4>
     <p id="toast-message">Operation completed.</p>
   </div>
 
-  <!-- เชื่อมกับไฟล์ JavaScript -->
+
   <script src="script.js"></script>
+  
   
 </body>
 </html>
