@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../db');
 const router = express.Router();
 
-// POST /orders/place
+// 1. สั่งซื้อสินค้า (POST /orders/place)
 router.post('/place', async (req, res) => {
     const { userId, items, total, shipping_name, shipping_address, shipping_phone, payment_method } = req.body;
 
@@ -20,7 +20,7 @@ router.post('/place', async (req, res) => {
         );
         const orderId = resOrder.insertId;
 
-        // บันทึกสินค้า
+        // บันทึกรายการสินค้า
         for (const item of items) {
             await connection.query(
                 `INSERT INTO order_items (order_id, product_id, seller_id, product_name, unit_price, quantity, line_total)
@@ -29,7 +29,7 @@ router.post('/place', async (req, res) => {
             );
         }
 
-        // เคลียร์ตะกร้า
+        // เคลียร์ตะกร้าใน DB
         await connection.query('UPDATE carts SET status = "checked_out" WHERE user_id = ? AND status = "active"', [userId]);
 
         await connection.commit();
@@ -41,6 +41,28 @@ router.post('/place', async (req, res) => {
         res.status(500).json({ error: err.message });
     } finally {
         connection.release();
+    }
+});
+
+// 2. [สำคัญ] ดึงประวัติการสั่งซื้อ (GET /orders/history/:userId)
+router.get('/history/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        // ดึงข้อมูลออเดอร์ของผู้ใช้นี้ เรียงจากใหม่ไปเก่า
+        const sql = `
+            SELECT id, total, status, created_at 
+            FROM orders 
+            WHERE buyer_id = ? 
+            ORDER BY created_at DESC
+        `;
+        const [orders] = await pool.query(sql, [userId]);
+
+        res.json(orders);
+
+    } catch (err) {
+        console.error("History Error:", err);
+        res.status(500).json({ error: 'ไม่สามารถดึงข้อมูลได้' });
     }
 });
 
