@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Center — HIENDBRANDS™</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Inline CSS เพื่อความง่าย (แยกไฟล์ได้ถ้าต้องการ) -->
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Prompt', sans-serif; background: #f0f2f5; color: #333; }
+        
+        /* Navbar */
+        .seller-nav {
+            background: #1a1a1a; color: #fff; padding: 15px 30px; 
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .nav-brand { font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: #fff; text-decoration: none; }
+        .nav-menu a { color: #ccc; text-decoration: none; margin-left: 20px; font-size: 0.9rem; transition: 0.2s; }
+        .nav-menu a:hover { color: #fff; }
+
+        /* Container */
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        
+        .dashboard-grid { 
+            display: grid; 
+            grid-template-columns: 350px 1fr; /* ซ้ายลงของ, ขวาดูออเดอร์ */
+            gap: 30px; 
+        }
+
+        /* Card Style */
+        .card { 
+            background: #fff; padding: 25px; border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 30px; 
+        }
+        .card-header { 
+            border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .card-title { font-size: 1.1rem; font-weight: 700; color: #000; }
+        
+        /* Form */
+        .form-group { margin-bottom: 15px; }
+        .form-label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; }
+        .form-control {
+            width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px;
+            font-family: inherit; transition: 0.2s;
+        }
+        .form-control:focus { border-color: #000; outline: none; }
+        
+        .btn-submit {
+            width: 100%; padding: 12px; background: #000; color: #fff; 
+            border: none; border-radius: 8px; font-weight: 600; cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-submit:hover { background: #333; transform: translateY(-2px); }
+
+        /* Table */
+        .table-responsive { overflow-x: auto; }
+        .table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .table th { 
+            text-align: left; padding: 12px; background: #f8f9fa; 
+            color: #666; font-weight: 600; border-bottom: 2px solid #eee; white-space: nowrap;
+        }
+        .table td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
+        
+        .status-badge { 
+            padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; 
+            text-transform: uppercase; display: inline-block;
+        }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-paid { background: #d1e7dd; color: #0f5132; }
+        
+        .product-thumb { width: 40px; height: 40px; object-fit: cover; border-radius: 4px; margin-right: 10px; vertical-align: middle; }
+
+        @media (max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <nav class="seller-nav">
+        <a href="main.html" class="nav-brand"><i class="fas fa-store"></i> SELLER CENTER</a>
+        <div class="nav-menu">
+            <span id="seller-name">User</span>
+            <a href="profile.html">กลับหน้า Profile</a>
+            <a href="#" onclick="logout()">ออกจากระบบ</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Dashboard Content -->
+        <div class="dashboard-grid">
+            
+            <!-- Left Column: ลงสินค้า -->
+            <div class="left-col">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-plus-circle"></i> ลงขายสินค้าใหม่</h2>
+                    </div>
+                    <form id="addProductForm">
+                        <div class="form-group">
+                            <label class="form-label">ชื่อสินค้า (Product Name)</label>
+                            <input type="text" id="p-name" class="form-control" required placeholder="เช่น เสื้อยืดสีดำ">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">ราคา (Price)</label>
+                            <input type="number" id="p-price" class="form-control" required placeholder="590">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">จำนวนสต็อก (Stock)</label>
+                            <input type="number" id="p-stock" class="form-control" value="10">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">ลิงก์รูปภาพ (Image URL)</label>
+                            <input type="text" id="p-image" class="form-control" placeholder="pic/shirt1.jpg">
+                            <small style="color:#888;">ใส่ Path รูปที่มีในโฟลเดอร์ public</small>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">รายละเอียด (Description)</label>
+                            <textarea id="p-desc" class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">ลงขายทันที</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Column: รายการออเดอร์ -->
+            <div class="right-col">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-clipboard-list"></i> รายการสั่งซื้อล่าสุด (Incoming Orders)</h2>
+                        <button onclick="loadOrders()" style="background:none; border:none; cursor:pointer;"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>สินค้าที่สั่ง</th>
+                                    <th>ลูกค้า</th>
+                                    <th>ยอดรวม</th>
+                                    <th>สถานะ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersBody">
+                                <tr><td colspan="5" style="text-align:center; padding:20px;">กำลังโหลดข้อมูล...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-box"></i> สินค้าของฉัน (My Products)</h2>
+                    </div>
+                    <div id="myProductsList" style="max-height: 300px; overflow-y: auto;">
+                        <!-- JS จะเติมข้อมูลตรงนี้ -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        const API_URL = 'http://localhost:3000'; 
+        const userSession = localStorage.getItem('user_session');
+
+        // 1. ตรวจสอบสิทธิ์ (Security Check)
+        if (!userSession) {
+            alert('กรุณาเข้าสู่ระบบก่อน');
+            window.location.href = 'login_register.html';
+        } 
+
+        const user = JSON.parse(userSession); // Get user object
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadOrders();
+            loadMyProducts();
+        });
+
+        // 2. ฟังก์ชันลงสินค้า
+        document.getElementById('addProductForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const productData = {
+                seller_id: user.id,
+                name: document.getElementById('p-name').value,
+                price: document.getElementById('p-price').value,
+                stock: document.getElementById('p-stock').value,
+                image: document.getElementById('p-image').value,
+                description: document.getElementById('p-desc').value
+            };
+
+            try {
+                const res = await fetch(`${API_URL}/seller/product`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(productData)
+                });
+                const result = await res.json();
+                
+                if (res.ok) {
+                    alert(`ลงสินค้าสำเร็จ! (ID: ${result.productId})`);
+                    loadMyProducts(); // รีโหลดรายการ
+                    document.getElementById('addProductForm').reset();
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (err) {
+                console.error(err);
+                alert('เชื่อมต่อ Server ไม่ได้');
+            }
+        });
+
+        // 3. ฟังก์ชันโหลดออเดอร์
+        async function loadOrders() {
+            try {
+                const res = await fetch(`${API_URL}/seller/orders/${user.id}`);
+                const orders = await res.json();
+                
+                const tbody = document.getElementById('ordersBody');
+                tbody.innerHTML = '';
+
+                if (orders.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:#888;">ยังไม่มีคำสั่งซื้อเข้ามา</td></tr>';
+                    return;
+                }
+
+                orders.forEach(o => {
+                    let statusClass = o.order_status === 'paid' ? 'status-paid' : 'status-pending';
+                    
+                    // แปลงวันที่
+                    const date = new Date(o.created_at).toLocaleDateString('th-TH');
+
+                    const row = `
+                        <tr>
+                            <td>#${o.order_id}<br><small style="color:#888;">${date}</small></td>
+                            <td>
+                                <b>${o.product_name}</b><br>
+                                <small>x${o.quantity} | ${o.size || '-'}, ${o.color || '-'}</small>
+                            </td>
+                            <td>
+                                ${o.shipping_name || o.buyer_name}<br>
+                                <small style="color:#666;">${o.shipping_address || '-'}</small>
+                            </td>
+                            <td style="font-weight:bold;">฿${parseFloat(o.line_total).toLocaleString()}</td>
+                            <td><span class="status-badge ${statusClass}">${o.order_status}</span></td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        // 4. ฟังก์ชันโหลดสินค้าของฉัน
+        async function loadMyProducts() {
+            try {
+                const res = await fetch(`${API_URL}/seller/products/${user.id}`);
+                const products = await res.json();
+                const container = document.getElementById('myProductsList');
+                
+                if (products.length === 0) {
+                    container.innerHTML = '<p style="text-align:center; color:#888; padding:20px;">คุณยังไม่มีสินค้า</p>';
+                    return;
+                }
+
+                let html = '<ul style="list-style:none; padding:0;">';
+                products.forEach(p => {
+                    // Path รูป
+                    let imgPath = p.image;
+                    if(imgPath && !imgPath.startsWith('http')) imgPath = 'public/' + imgPath; // ปรับตาม path จริง
+
+                    html += `<li style="padding:15px; border-bottom:1px solid #f0f0f0; display:flex; align-items:center; justify-content:space-between;">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src="${imgPath}" style="width:40px; height:40px; border-radius:4px; object-fit:cover; background:#eee;">
+                            <div>
+                                <div style="font-weight:600; font-size:0.95rem;">${p.name}</div>
+                                <div style="font-size:0.8rem; color:#888;">Stock: ${p.stock} | ID: ${p.id}</div>
+                            </div>
+                        </div>
+                        <span style="font-weight:bold;">฿${parseFloat(p.price).toLocaleString()}</span>
+                    </li>`;
+                });
+                html += '</ul>';
+                container.innerHTML = html;
+            } catch (err) { console.error(err); }
+        }
+
+        function logout() {
+            localStorage.removeItem('user_session');
+            localStorage.removeItem('user_id');
+            window.location.href = 'login_register.html';
+        }
+    </script>
+</body>
+</html>

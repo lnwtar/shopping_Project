@@ -324,3 +324,18 @@ body {
         gap: 10px;
     }
 }
+
+.status-badge { 
+    padding: 5px 12px; 
+    border-radius: 20px; 
+    font-size: 0.75rem; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    display: inline-block;
+}
+
+.status-pending { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; } /* รอชำระเงิน */
+.status-paid { background: #ebf8ff; color: #2b6cb0; border: 1px solid #bee3f8; }    /* จ่ายแล้ว */
+.status-shipped { background: #e6fffa; color: #2c7a7b; border: 1px solid #b2f5ea; } /* ส่งแล้ว */
+.status-completed { background: #c6f6d5; color: #22543d; border: 1px solid #9ae6b4; } /* สำเร็จ */
+.status-cancelled { background: #fef2f2; color: #c53030; border: 1px solid #fecaca; } /* ยกเลิก */
