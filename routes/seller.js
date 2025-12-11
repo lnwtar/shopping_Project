@@ -1,5 +1,5 @@
 const express = require('express');
-const pool = require('../db'); 
+const pool = require('./db'); 
 const router = express.Router();
 
 // 1. ลงสินค้าใหม่ (POST /seller/product)
@@ -13,12 +13,7 @@ router.post('/product', async (req, res) => {
     }
 
     try {
-        // ตรวจสอบสิทธิ์: ผู้ใช้คนนี้เป็น Seller หรือไม่?
-        const [user] = await pool.query('SELECT is_seller FROM users WHERE id = ?', [seller_id]);
-        
-        if (user.length === 0 || user[0].is_seller !== 1) {
-            return res.status(403).json({ error: 'คุณไม่มีสิทธิ์ลงขายสินค้า (Seller access only)' });
-        }
+       
 
         // เพิ่มสินค้าลงตาราง products (ไม่ใส่ ID เพราะ Auto Increment)
         const sql = `
