@@ -94,3 +94,4 @@ window.handleLogout = function() {
         window.location.href = 'login_register.html';
     }
 };
+

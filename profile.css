@@ -339,3 +339,4 @@ body {
 .status-shipped { background: #e6fffa; color: #2c7a7b; border: 1px solid #b2f5ea; } /* ส่งแล้ว */
 .status-completed { background: #c6f6d5; color: #22543d; border: 1px solid #9ae6b4; } /* สำเร็จ */
 .status-cancelled { background: #fef2f2; color: #c53030; border: 1px solid #fecaca; } /* ยกเลิก */
+
