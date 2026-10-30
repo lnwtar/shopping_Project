@@ -1,5 +1,5 @@
 // URL Backend: แก้ไขให้ตรงกับ Express Server ของคุณ (เช่น http://localhost:3000)
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = window.location.origin;
 
 // =========================
 // ฟังก์ชันสลับฟอร์ม Login/Register

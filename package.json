@@ -4,7 +4,9 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "db:init": "node scripts/init-db.js",
+    "test": "node --check server.js && node --check db.js && node --check routes/auth.js && node --check routes/cart.js && node --check routes/orders.js && node --check routes/seller.js && node --check scripts/init-db.js"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,28 @@
 const express = require('express');
-const pool = require('./db'); 
+const fs = require('fs');
+const path = require('path');
+const pool = require('../db');
 const router = express.Router();
+
+const publicRoot = path.join(__dirname, '..', 'public');
+
+function normalizeProductImage(product) {
+    if (!product.image || /^https?:\/\//i.test(product.image)) return product;
+    const relativeImage = product.image.replace(/^public[\\/]/, '').replace(/\\/g, '/');
+    const imagePath = path.join(publicRoot, ...relativeImage.split('/'));
+    if (fs.existsSync(imagePath)) return { ...product, image: relativeImage, image_missing: false };
+    return { ...product, image: 'pic/parcel.png', image_missing: true };
+}
+
+router.get('/all', async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT * FROM products ORDER BY created_at DESC');
+        res.json(rows.map(normalizeProductImage));
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'ดึงข้อมูลสินค้าไม่สำเร็จ' });
+    }
+});
 
 // 1. ลงสินค้าใหม่ (POST /seller/product)
 router.post('/product', async (req, res) => {
@@ -35,17 +57,17 @@ router.post('/product', async (req, res) => {
 });
 
 // 2. ดูสินค้าของฉัน (GET /seller/products/:sellerId)
-router.get('/products', async (req, res) => {
+router.get('/products/:sellerId', async (req, res) => {
     try {
         const [rows] = await pool.query('SELECT * FROM products WHERE seller_id = ? ORDER BY created_at DESC', [req.params.sellerId]);
-        res.json(rows);
+        res.json(rows.map(normalizeProductImage));
     } catch (err) {
         res.status(500).json({ error: 'ดึงข้อมูลสินค้าไม่สำเร็จ' });
     }
 });
 
 // 3. ดูออเดอร์ที่ลูกค้าสั่งของฉัน (GET /seller/orders/:sellerId)
-router.get('/orders', async (req, res) => {
+router.get('/orders/:sellerId', async (req, res) => {
     try {
         const sql = `
             SELECT 
@@ -55,8 +77,6 @@ router.get('/orders', async (req, res) => {
                 oi.quantity,
                 oi.unit_price,
                 oi.line_total,
-                oi.size,     -- (ถ้ามีคอลัมน์นี้)
-                oi.color,    -- (ถ้ามีคอลัมน์นี้)
                 o.status as order_status,
                 o.created_at,
                 o.shipping_name,
@@ -78,4 +98,4 @@ router.get('/orders', async (req, res) => {
     }
 });
 
-module.exports = router; 
+module.exports = router;

@@ -1,0 +1,31 @@
+INSERT IGNORE INTO users (id, username, email, password_hash, is_seller)
+VALUES (1000, 'catalog-owner', 'catalog-owner@hiendbrands.local', '$2b$12$5u5.QA3snzWPPFW.3RKHX.VMq.Ok7ajrc9YGzP027rYjRibGxi6i.', 1);
+
+INSERT IGNORE INTO products (id, seller_id, name, description, image, price, stock) VALUES
+  (1, 1000, 'CARNIVAL X THAITANIUM THAI RIDER TEE BLACK', 'Portfolio demo product', 'thaita/thai01.jpg', 1890.00, 50),
+  (2, 1000, 'CARNIVAL X THAITANIUM R.A.S. TEE BLACK', 'Portfolio demo product', 'thaita/thai02.jpg', 1890.00, 50),
+  (3, 1000, 'CARNIVAL X THAITANIUM SOCCER JERSEY BLACK', 'Portfolio demo product', 'thaita/thai03.jpg', 1890.00, 50),
+  (4, 1000, 'CARNIVAL X THAITANIUM VARSITY JACKET BLACK', 'Portfolio demo product', 'thaita/thai04.jpg', 6500.00, 50),
+  (5, 1000, 'CARNIVAL X THAITANIUM TURNTABLE LUCID WHITE', 'Portfolio demo product', 'thaita/thai05.jpg', 9390.00, 50),
+  (6, 1000, 'CARNIVAL X THAITANIUM VINYL STORAGE', 'Portfolio demo product', 'thaita/thai06.jpg', 1590.00, 50),
+  (7, 1000, 'CARNIVAL X THAITANIUM THAI RIDER TEE BLACK', 'Portfolio demo product', 'bigmountain/pic1.jpg', 1390.00, 50),
+  (8, 1000, 'CARNIVAL X THAITANIUM R.A.S. TEE BLACK', 'Portfolio demo product', 'bigmountain/pic5.jpg', 1390.00, 50),
+  (9, 1000, 'CARNIVAL X BMMF RODEO OVS T-SHIRT BLACK', 'Portfolio demo product', 'bigmountain/pic9.jpg', 1390.00, 50),
+  (10, 1000, 'CARNIVAL X TOP SECRET FAIRLADY HOODIE BLACK', 'Portfolio demo product', 'topsecrect/top1.jpg', 2790.00, 50),
+  (11, 1000, 'CARNIVAL X TOP SECRET S15 CREWNECK BLACK', 'Portfolio demo product', 'topsecrect/top2.jpg', 2590.00, 50),
+  (12, 1000, 'CARNIVAL X TOP SECRET PERFORMANCE POLO', 'Portfolio demo product', 'topsecrect/top3.jpg', 3900.00, 50),
+  (13, 1000, 'CARNIVAL X TOP SECRET SUPRA OVS T-SHIRT BLACK', 'Portfolio demo product', 'topsecrect/top4.jpg', 2890.00, 50),
+  (14, 1000, 'CARNIVAL X TOP SECRET BURNOUT OVS T-SHIRT BLACK', 'Portfolio demo product', 'topsecrect/top5.jpg', 1890.00, 50),
+  (15, 1000, 'CARNIVAL X TOP SECRET SPEED OVS T-SHIRT BLACK', 'Portfolio demo product', 'topsecrect/top6.jpg', 1590.00, 50),
+  (16, 1000, 'FuzzFleece AD Light Hoodie', 'Portfolio demo product', 'running/run1.1.jpg', 22890.00, 50),
+  (17, 1000, 'Justice CoffeeThermal Base Layer', 'Portfolio demo product', 'running/run2.1.webp', 18890.00, 50),
+  (18, 1000, 'CloudMerino Waffle Base Layer', 'Portfolio demo product', 'running/run3.1.webp', 18890.00, 50),
+  (19, 1000, 'Justice CoffeeThermal Base Layer', 'Portfolio demo product', 'running/run4.1.webp', 9390.00, 50),
+  (20, 1000, 'Justice CoffeeThermal Base Layer', 'Portfolio demo product', 'running/run5.1.webp', 9390.00, 50),
+  (21, 1000, 'CoffeeThermal 8-inch Shorts', 'Portfolio demo product', 'running/run6.1.webp', 11890.00, 50),
+  (22, 1000, 'AuraLite T-Shirt', 'Portfolio demo product', 'running/run7.webp', 8790.00, 50),
+  (23, 1000, 'AuraLite T-Shirt', 'Portfolio demo product', 'running/run8.webp', 8900.00, 50),
+  (24, 1000, 'MothTech T-Shirt', 'Portfolio demo product', 'running/run9.webp', 7890.00, 50),
+  (25, 1000, 'MothTech T-Shirt', 'Portfolio demo product', 'running/run10.webp', 7890.00, 50),
+  (26, 1000, 'FuzzFleece AD Bandana', 'Portfolio demo product', 'running/item11.webp', 5590.00, 50),
+  (27, 1000, 'Justice CoffeeThermal Base Layer', 'Portfolio demo product', 'running/Item12.webp', 5590.00, 50);

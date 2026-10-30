@@ -329,7 +329,8 @@
     </div>
 
     <script>
-    const API_MAIN = 'http://localhost:3000';
+    const API_MAIN = window.location.origin;
+    const API_BASE = API_MAIN;
 
     document.addEventListener('DOMContentLoaded', () => {
         loadAllProducts();

@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:3000';
+const API_BASE = window.location.origin;
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. เช็ค Login

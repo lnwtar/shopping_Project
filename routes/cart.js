@@ -34,6 +34,18 @@ router.get('/:userId', async (req, res) => {
 router.post('/add', async (req, res) => {
     const { userId, productId, quantity, size, color } = req.body;
     try {
+        const numericProductId = Number(productId);
+        const numericUserId = Number(userId);
+
+        if (!Number.isInteger(numericUserId) || !Number.isInteger(numericProductId)) {
+            return res.status(400).json({ error: 'Invalid user or product ID' });
+        }
+
+        const [products] = await pool.query('SELECT id, price FROM products WHERE id = ?', [numericProductId]);
+        if (products.length === 0) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
         const [carts] = await pool.query('SELECT id FROM carts WHERE user_id = ? AND status = "active"', [userId]);
         let cartId;
         if (carts.length === 0) {
@@ -50,8 +62,7 @@ router.post('/add', async (req, res) => {
             const newQty = items[0].quantity + (quantity || 1);
             await pool.query('UPDATE cart_items SET quantity = ? WHERE id = ?', [newQty, items[0].id]);
         } else {
-            const [product] = await pool.query('SELECT price FROM products WHERE id = ?', [productId]);
-            const price = product[0].price;
+            const price = products[0].price;
             await pool.query(
                 `INSERT INTO cart_items (cart_id, product_id, quantity, unit_price, size, color) VALUES (?, ?, ?, ?, ?, ?)`,
                 [cartId, productId, quantity || 1, price, size, color]
