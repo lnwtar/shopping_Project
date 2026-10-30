@@ -1,4 +1,4 @@
-const API_AUTH = 'http://localhost:3000'; // URL Backend
+const API_AUTH = window.location.origin;
 
 document.addEventListener('DOMContentLoaded', () => {
     injectModalHTML();

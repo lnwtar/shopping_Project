@@ -1,5 +1,5 @@
 // URL ของ API
-const API_BASE = 'http://localhost:3000';
+const API_BASE = window.location.origin;
 // Path ไปหน้า Login (ใช้ / เพื่อเริ่มจากหน้าบ้านเสมอ)
 const LOGIN_PAGE_PATH = '/login_register.html'; 
 

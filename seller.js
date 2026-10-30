@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000'; 
+const API_URL = window.location.origin;
 const userSession = localStorage.getItem('user_session');
 
 // 1. ตรวจสอบสิทธิ์ทันทีที่โหลด
