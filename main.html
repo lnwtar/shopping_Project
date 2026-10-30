@@ -331,8 +331,17 @@
     <script>
     const API_MAIN = window.location.origin;
     const API_BASE = API_MAIN;
+    const STATIC_DEMO = window.location.hostname.endsWith('github.io');
 
     document.addEventListener('DOMContentLoaded', () => {
+        if (STATIC_DEMO) {
+            const notice = document.createElement('div');
+            notice.setAttribute('role', 'status');
+            notice.style.cssText = 'position:sticky;top:0;z-index:9999;padding:10px 16px;background:#111;color:#fff;text-align:center;font:600 13px/1.4 Arial,sans-serif;letter-spacing:.04em';
+            notice.textContent = 'PORTFOLIO DEMO — Browse the catalog and product details. Checkout requires the full Node.js + MySQL server.';
+            document.body.prepend(notice);
+            return;
+        }
         loadAllProducts();
     });
 
